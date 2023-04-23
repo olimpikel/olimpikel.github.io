@@ -6,27 +6,37 @@
   <!-- Inclure le lien vers le fichier de style CSS de votre choix -->
 </head>
 <body>
-  <h1>Connexion metamask</h1>
+  <h1>Connexion MetaMask</h1>
   <p>Bienvenue sur ma DApp basée sur Songbird. Veuillez vous connecter à MetaMask pour continuer.</p>
   <button onclick="connectMetaMask()">Se connecter à MetaMask</button>
 
-  <!-- Ajouter le script MetaMask -->
+  <!-- Ajouter le formulaire pour les fonctions de dépôt et de retrait -->
+  <form onsubmit="return false;">
+    <label for="montantDepot">Montant à déposer :</label>
+    <input type="number" id="montantDepot" name="montantDepot">
+    <button onclick="deposer()">Déposer</button>
+    <br>
+    <label for="montantRetrait">Montant à retirer :</label>
+    <input type="number" id="montantRetrait" name="montantRetrait">
+    <button onclick="retirer()">Retirer</button>
+  </form>
+
+  <!-- Ajouter le script MetaMask et les fonctions pour les fonctions de dépôt et de retrait -->
   <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@1.4.1/dist/detect-provider.min.js"></script>
   <script>
     // Fonction pour se connecter à MetaMask
     async function connectMetaMask() {
-      if (typeof window.ethereum !== 'undefined') {
-        try {
-          // Demande de connexion à MetaMask
-          await window.ethereum.request({ method: 'eth_requestAccounts' });
-          console.log('Connecté à MetaMask !');
-          // Ici, vous pouvez effectuer des actions avec MetaMask connecté
-        } catch (error) {
-          console.error(error);
-        }
-      } else {
-        console.error("MetaMask n'est pas installé !");
-      }
+      // Code de connexion à MetaMask
+    }
+
+    // Fonction pour déposer des fonds
+    async function deposer() {
+      // Code pour appeler la fonction de dépôt du smart contract
+    }
+
+    // Fonction pour retirer des fonds
+    async function retirer() {
+      // Code pour appeler la fonction de retrait du smart contract
     }
   </script>
 </body>
