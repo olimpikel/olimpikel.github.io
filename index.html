@@ -10,9 +10,23 @@
   <p>Bienvenue sur ma DApp basée sur Ethereum. Veuillez vous connecter à MetaMask pour continuer.</p>
   <button onclick="connectMetaMask()">Se connecter à MetaMask</button>
 
+  <form onsubmit="return false;">
+    <label for="amount">Montant à échanger :</label>
+    <input type="number" id="amount" min="0" step="1" placeholder="0">
+    <button onclick="swap()">Échanger</button>
+  </form>
+
   <!-- Ajouter le script MetaMask -->
   <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@1.4.1/dist/detect-provider.min.js"></script>
   <script>
+    // Adresse du smart contract
+    const contractAddress = 'ADRESSE_DU_SMART_CONTRACT';
+    // ABI du smart contract
+    const contractABI = [...]; // Remplacer par l'ABI de votre smart contract
+
+    // Instance du smart contract
+    let contractInstance;
+
     // Fonction pour se connecter à MetaMask
     async function connectMetaMask() {
       if (typeof window.ethereum !== 'undefined') {
@@ -20,12 +34,40 @@
           // Demande de connexion à MetaMask
           await window.ethereum.request({ method: 'eth_requestAccounts' });
           console.log('Connecté à MetaMask !');
+          // Initialiser l'instance du smart contract
+          contractInstance = new window.ethereum.Contract(contractABI, contractAddress);
           // Ici, vous pouvez effectuer des actions avec MetaMask connecté
         } catch (error) {
           console.error(error);
         }
       } else {
         console.error("MetaMask n'est pas installé !");
+      }
+    }
+
+    // Fonction pour appeler la fonction "swap" du smart contract
+    async function swap() {
+      // Vérifier si l'instance du smart contract est initialisée
+      if (!contractInstance) {
+        console.error("Veuillez vous connecter à MetaMask d'abord !");
+        return;
+      }
+
+      // Récupérer la quantité à échanger depuis le champ de formulaire
+      const amount = document.getElementById('amount').value;
+      if (!amount || amount <= 0) {
+        console.error("Veuillez entrer un montant valide !");
+        return;
+      }
+
+      // Ici, vous pouvez appeler la fonction "swap" du smart contract en utilisant l'instance du smart contract
+      // et la quantité à échanger
+      try {
+        const result = await contractInstance.methods.swap(amount).send({ from: window.ethereum.selectedAddress });
+        console.log('Résultat de la fonction "swap" :', result);
+        // Traiter le résultat de la fonction "swap" ici
+      } catch (error) {
+        console.error(error);
       }
     }
   </script>
