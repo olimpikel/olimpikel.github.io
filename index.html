@@ -1,75 +1,160 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>Ma DApp avec MetaMask</title>
-  <!-- Inclure le lien vers le fichier de style CSS de votre choix -->
+    <meta charset="utf-8">
+    <title>Ma dApp</title>
+    <script src="https://cdn.jsdelivr.net/npm/@zondax/filecoin-signing-tools@latest/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.0/dist/ethers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
 </head>
+
 <body>
-  <h1>Ma DApp avec MetaMask</h1>
-  <p>Bienvenue sur ma DApp basée sur Ethereum. Veuillez vous connecter à MetaMask pour continuer.</p>
-  <button onclick="connectMetaMask()">Se connecter à MetaMask</button>
+    <h1>Ma dApp</h1>
+    <p>Connectez-vous à MetaMask pour utiliser les fonctions de dépôt et retrait du smart contract.</p>
 
-  <form onsubmit="return false;">
-    <label for="amount">Montant à échanger :</label>
-    <input type="number" id="amount" min="0" step="1" placeholder="0">
-    <button onclick="swap()">Échanger</button>
-  </form>
+    <button onclick="connect()">Connecter MetaMask</button>
+    <button onclick="deposit()">Déposer</button>
+    <button onclick="withdraw()">Retirer</button>
 
-  <!-- Ajouter le script MetaMask -->
-  <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@1.4.1/dist/detect-provider.min.js"></script>
-  <script>
-    // Adresse du smart contract
-    const contractAddress = 'ADRESSE_DU_SMART_CONTRACT';
-    // ABI du smart contract
-    const contractABI = [...]; // Remplacer par l'ABI de votre smart contract
+    <script>
+        // Définir l'ABI du smart contract
+        const abi = [...([
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+])]; // Remplacez ABi_du_smart_contract par l'ABI fournie
 
-    // Instance du smart contract
-    let contractInstance;
+        // Adresse du smart contract
+        const contractAddress = '0x2dCDEfF405D23dA681b26b8B30972B619053b4ab'; // Remplacez Adresse_du_smart_contract par l'adresse de votre smart contract
 
-    // Fonction pour se connecter à MetaMask
-    async function connectMetaMask() {
-      if (typeof window.ethereum !== 'undefined') {
-        try {
-          // Demande de connexion à MetaMask
-          await window.ethereum.request({ method: 'eth_requestAccounts' });
-          console.log('Connecté à MetaMask !');
-          // Initialiser l'instance du smart contract
-          contractInstance = new window.ethereum.Contract(contractABI, contractAddress);
-          // Ici, vous pouvez effectuer des actions avec MetaMask connecté
-        } catch (error) {
-          console.error(error);
+        // Objet pour interagir avec le smart contract
+        let contract;
+
+        // Fonction pour connecter MetaMask
+        async function connect() {
+            // Vérifier si MetaMask est installé
+            if (typeof window.ethereum === 'undefined') {
+                alert('Veuillez installer MetaMask pour utiliser cette dApp.');
+                return;
+            }
+
+            // Demander l'autorisation de se connecter au compte MetaMask
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+            // Créer un objet contract pour interagir avec le smart contract
+            contract = new window.ethers.Contract(contractAddress, abi, window.ethereum);
+            console.log('Connecté à MetaMask');
         }
-      } else {
-        console.error("MetaMask n'est pas installé !");
-      }
+
+        // Fonction pour déposer dans le smart contract
+        async function deposit() {
+            // Vérifier si l'utilisateur est connecté à MetaMask
+            if (!contract) {
+                alert('Veuillez vous connecter à MetaMask pour utiliser cette fonction.');
+                return;
+            }
+
+            // Demander le montant du dépôt à l'utilisateur
+            const amount = prompt('Veuillez entrer le montant du dépôt en wei :');
+
+            // Appeler la fonction de dépôt du smart contract
+            try {
+                const tx = await contract.deposit({ value: amount });
+                await tx.wait();
+                alert('Dépôt effectué avec succès.');
+            } catch (error) {
+                console.error('Erreur lors du dépôt :', error);
+            }
+        }
+
+        // Fonction pour retirer du smart contract
+async function withdraw() {
+    // Vérifier si l'utilisateur est connecté à MetaMask
+    if (!contract) {
+        alert('Veuillez vous connecter à MetaMask pour utiliser cette fonction.');
+        return;
     }
 
-    // Fonction pour appeler la fonction "swap" du smart contract
-    async function swap() {
-      // Vérifier si l'instance du smart contract est initialisée
-      if (!contractInstance) {
-        console.error("Veuillez vous connecter à MetaMask d'abord !");
-        return;
-      }
+    // Demander le montant du retrait à l'utilisateur
+    const amount = prompt('Veuillez entrer le montant du retrait en wei :');
 
-      // Récupérer la quantité à échanger depuis le champ de formulaire
-      const amount = document.getElementById('amount').value;
-      if (!amount || amount <= 0) {
-        console.error("Veuillez entrer un montant valide !");
-        return;
-      }
-
-      // Ici, vous pouvez appeler la fonction "swap" du smart contract en utilisant l'instance du smart contract
-      // et la quantité à échanger
-      try {
-        const result = await contractInstance.methods.swap(amount).send({ from: window.ethereum.selectedAddress });
-        console.log('Résultat de la fonction "swap" :', result);
-        // Traiter le résultat de la fonction "swap" ici
-      } catch (error) {
-        console.error(error);
-      }
+    // Appeler la fonction de retrait du smart contract
+    try {
+        const tx = await contract.withdraw(amount);
+        await tx.wait();
+        alert('Retrait effectué avec succès.');
+    } catch (error) {
+        console.error('Erreur lors du retrait :', error);
     }
-  </script>
-</body>
-</html>
+}
+
