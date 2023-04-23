@@ -25,7 +25,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider@1.4.1/dist/detect-provider.min.js"></script>
   <script>
     // Charger l'ABI du contrat intelligent
-    const ABI = [
+    const ABI =[
 	{
 		"inputs": [
 			{
@@ -86,7 +86,7 @@
 ] // Remplacer [...] avec le contenu de votre ABI
 
     // Créer une instance du contrat
-    const contractInstance = new ethers.Contract('0x2dCDEfF405D23dA681b26b8B30972B619053b4ab', ABI, ethereum);
+    const contractInstance = new ethers.Contract(0x2dCDEfF405D23dA681b26b8B30972B619053b4ab, ABI, ethereum);
 
 // Fonction pour se connecter à MetaMask
 async function connectMetaMask() {
