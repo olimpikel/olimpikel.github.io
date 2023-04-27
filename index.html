@@ -1,37 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Songbird Project</title>
-  <!-- Inclure le lien vers le fichier de style CSS de votre choix -->
-	
+	<meta charset="UTF-8">
+	<title>Nom de l'échange décentralisé</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Connexion MetaMask</h1>
-  <p>Bienvenue sur ma DApp basée sur Songbird. Veuillez vous connecter à MetaMask pour continuer.</p>
-  <button onclick="connectMetaMask()">Se connecter à MetaMask</button>
-
-  <!-- Ajouter le formulaire pour les fonctions de dépôt et de retrait -->
-  <form onsubmit="return false;">
-    <label for="montantDepot">Montant à déposer :</label>
-    <input type="number" id="montantDepot" name="montantDepot">
-    <button onclick="deposer()">Déposer</button>
-    <br>
-    <label for="montantRetrait">Montant à retirer :</label>
-    <input type="number" id="montantRetrait" name="montantRetrait">
-    <button onclick="retirer()">Retirer</button>
-  </form>
-	
-<!-- Inclure le lien vers le fichier ethers.js -->
-<script charset="utf-8"
-        src="https://unpkg.com/ethers@5.4.2/dist/ethers.min.js"
-        type="text/javascript">
-</script>
-
-
-  <!-- Ajouter le script MetaMask et les fonctions pour les fonctions de dépôt et de retrait -->
-<script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js" type="text/javascript"></script>
-
- 
+	<header>
+		<h1>Nom de l'échange décentralisé</h1>
+		<nav>
+			<ul>
+				<li><a href="#">Accueil</a></li>
+				<li><a href="#">À propos</a></li>
+				<li><a href="#">Équipe</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section class="hero">
+			<h2>Bienvenue sur l'échange décentralisé</h2>
+			<p>Échangez vos cryptomonnaies en toute sécurité et sans intermédiaire grâce à notre pool de liquidités décentralisée.</p>
+		</section>
+		<section class="swap">
+			<h3>Faire un swap</h3>
+			<form>
+				<label for="from">De :</label>
+				<select id="from">
+					<option value="ETH">ETH</option>
+					<option value="BTC">BTC</option>
+					<option value="USDC">USDC</option>
+				</select>
+				<label for="to">À :</label>
+				<select id="to">
+					<option value="ETH">ETH</option>
+					<option value="BTC">BTC</option>
+					<option value="USDC">USDC</option>
+				</select>
+				<label for="amount">Montant :</label>
+				<input type="number" id="amount" step="0.01">
+				<button type="submit">Swap</button>
+			</form>
+		</section>
+		<section class="liquidity-pool">
+			<h3>Pool de liquidité</h3>
+			<p>Notre pool de liquidité est actuellement de :</p>
+			<div class="liquidity-amount">
+				<span class="liquidity-amount-value">1,000,000</span>
+				<span class="liquidity-amount-currency">USD</span>
+			</div>
+			<a href="#" class="add-liquidity-link">Ajouter de la liquidité</a>
+		</section>
+	</main>
+	<footer>
+		<p>Droit d'auteur © 2023 Nom de l'échange décentralisé. Tous droits réservés.</p>
+	</footer>
 </body>
 </html>
