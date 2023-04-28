@@ -1,59 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Nom de l'échange décentralisé</title>
-	<link rel="stylesheet" href="https://raw.githubusercontent.com/olimpikel/olimpikel.github.io/main/style.css">
+    <meta charset="UTF-8">
+    <title>Mon site avec Web3.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
 </head>
 <body>
-	<header>
-		<h1>Nom de l'échange décentralisé</h1>
-		<nav>
-			<ul>
-				<li><a href="#">Accueil</a></li>
-				<li><a href="#">À propos</a></li>
-				<li><a href="#">Équipe</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-		</nav>
-	</header>
-	<main>
-		<section class="hero">
-			<h2>Bienvenue sur l'échange décentralisé</h2>
-			<p>Échangez vos cryptomonnaies en toute sécurité et sans intermédiaire grâce à notre pool de liquidités décentralisée.</p>
-		</section>
-		<section class="swap">
-			<h3>Faire un swap</h3>
-			<form>
-				<label for="from">De :</label>
-				<select id="from">
-					<option value="ETH">ETH</option>
-					<option value="BTC">BTC</option>
-					<option value="USDC">USDC</option>
-				</select>
-				<label for="to">À :</label>
-				<select id="to">
-					<option value="ETH">ETH</option>
-					<option value="BTC">BTC</option>
-					<option value="USDC">USDC</option>
-				</select>
-				<label for="amount">Montant :</label>
-				<input type="number" id="amount" step="0.01">
-				<button type="submit">Swap</button>
-			</form>
-		</section>
-		<section class="liquidity-pool">
-			<h3>Pool de liquidité</h3>
-			<p>Notre pool de liquidité est actuellement de :</p>
-			<div class="liquidity-amount">
-				<span class="liquidity-amount-value">1,000,000</span>
-				<span class="liquidity-amount-currency">USD</span>
-			</div>
-			<a href="#" class="add-liquidity-link">Ajouter de la liquidité</a>
-		</section>
-	</main>
-	<footer>
-		<p>Droit d'auteur © 2023 Nom de l'échange décentralisé. Tous droits réservés.</p>
-	</footer>
+    <h1>Mon site avec Web3.js</h1>
+    <button id="connect-button">Connecter son portefeuille</button>
+    <div id="address"></div>
+    <div id="balance"></div>
+    <script>
+        // On attend que la page soit chargée
+        window.addEventListener('load', async () => {
+            // On vérifie si Web3 est disponible
+            if (typeof web3 !== 'undefined') {
+                // On crée une instance de Web3 avec le fournisseur du portefeuille de l'utilisateur
+                web3 = new Web3(web3.currentProvider);
+
+                // On ajoute un gestionnaire d'événements pour le clic sur le bouton de connexion
+                document.getElementById('connect-button').addEventListener('click', async () => {
+                    // On demande à l'utilisateur de se connecter à son portefeuille
+                    await window.ethereum.enable();
+
+                    // On récupère l'adresse du compte connecté
+                    const accounts = await web3.eth.getAccounts();
+                    const address = accounts[0];
+                    document.getElementById('address').innerText = 'Adresse: ' + address;
+
+                    // On récupère le solde du compte connecté en Songbird (SGB)
+                    const balance = await web3.eth.getBalance(address);
+                    const balanceSGB = web3.utils.fromWei(balance, 'ether');
+                    document.getElementById('balance').innerText = 'Solde: ' + balanceSGB + ' SGB';
+                });
+            } else {
+                // Si Web3 n'est pas disponible, on affiche un message d'erreur
+                document.getElementById('connect-button').disabled = true;
+                document.getElementById('address').innerText = 'Web3 n\'est pas disponible';
+            }
+        });
+    </script>
 </body>
 </html>
