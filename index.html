@@ -60,11 +60,7 @@
     });
 
     // Fonction pour effectuer le swap
-    async function swap() {
-        const amount = document.getElementById('amount').value;
-        const from = document.getElementById('from').value;
-        const to = document.getElementById('to').value;
-   const ABI = [
+      const ABI = [
 	{
 		"inputs": [
 			{
@@ -348,10 +344,23 @@
 		"type": "function"
 	}
 ];
+	    
+	    const contractAddress = "0x3c5B82e99de08BEca60f53393a856836F3909162";
+const contract = new web3.eth.Contract(ABI, contractAddress);
+	    
+	    async function swap() {
+    const amount = document.getElementById('amount').value;
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+
+    // Appel de la fonction swap du contrat intelligent
+    const result = await contract.methods.swap(amount, from, to).send();
+
+    // Affichage du résultat
+    document.getElementById('result').innerText = JSON.stringify(result);
+}
 
 
-        // On utilise l'ABI pour créer une instance du contrat à partir de son adresse
-        const contract = new web3.eth.Contract(ABI, 0x3c5B82e99de08BEca60f53393a856836F3909162 );
 
         // On effectue l'appel à la fonction swap du contrat avec les paramètres donnés
         await contract.methods.swap(amount, from, to).send({ from: web3.eth.defaultAccount });
