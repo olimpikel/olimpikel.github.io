@@ -15,7 +15,7 @@
             // On vérifie si Web3 est disponible
             if (typeof web3 !== 'undefined') {
                 // On crée une instance de Web3 avec le fournisseur du portefeuille de l'utilisateur
-                web3 = new Web3(web3.currentProvider);
+                web3 = new Web3('https://rpc.sprout.songbird.on.avax.network/');
 
                 // On ajoute un gestionnaire d'événements pour le clic sur le bouton de connexion
                 document.getElementById('connect-button').addEventListener('click', async () => {
