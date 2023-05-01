@@ -1,40 +1,52 @@
+/* Applique une police de caractères personnalisée */
 body {
-	margin: 0;
-	padding: 0;
-	font-family: Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-header {
-	background-color: #333;
-	color: #fff;
-	padding: 20px;
+/* Centre le titre et le rend plus grand */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 1rem;
 }
 
-header h1 {
-	margin: 0;
-	font-size: 36px;
+/* Ajoute une marge autour des étiquettes */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
-header nav ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	display: flex;
-	justify-content: flex-end;
+/* Ajoute une marge entre les éléments de formulaire */
+select,
+input {
+    margin-bottom: 1rem;
 }
 
-header nav li {
-	margin-left: 20px;
+/* Rend le bouton plus grand et ajoute une couleur de fond et de texte */
+button {
+    background-color: #3477f6;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1.2rem;
+    cursor: pointer;
 }
 
-header nav a {
-	color: #fff;
-	text-decoration: none;
+/* Applique un style de bordure autour des éléments de formulaire actifs */
+select:focus,
+input:focus {
+    outline: none;
+    border-color: #3477f6;
+    box-shadow: 0 0 0 2px rgba(52, 119, 246, 0.3);
 }
 
-main {
-	padding: 20px;
+/* Ajoute une bordure et une couleur de texte à l'élément de balance */
+#balance {
+    border: 2px solid #3477f6;
+    padding: 0.5rem;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3477f6;
 }
-
-.hero {
-	background-color: #f1f1f1
