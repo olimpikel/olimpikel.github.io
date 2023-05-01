@@ -5,10 +5,31 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
 </head>
 <body>
-<h1>Mon site avec Web3.js</h1>
+    <h1>Mon site avec Web3.js</h1>
     <button id="connect-button">Connecter son portefeuille</button>
     <div id="address"></div>
     <div id="balance"></div>
+    <h2>Interface de swap</h2>
+    <label for="amount">Montant:</label>
+    <input type="number" id="amount" name="amount" step="any">
+    <br><br>
+    <label for="from">De:</label>
+    <select id="from" name="from">
+        <option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">WSGB</option>
+        <option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">TTK</option>
+        <!-- Ajouter d'autres options de token -->
+    </select>
+    <br><br>
+    <label for="to">À:</label>
+    <select id="to" name="to">
+        <option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">WSGB</option>
+        <option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">TTK</option>
+        <!-- Ajouter d'autres options de token -->
+    </select>
+    <br><br>
+    <button onclick="swap()">Swap</button>
+    <br><br>
+    <p id="result"></p>
     <script>
         // On attend que la page soit chargée
         window.addEventListener('load', async () => {
@@ -28,44 +49,22 @@
                     document.getElementById('address').innerText = 'Adresse: ' + address;
 
                     // On récupère le solde du compte connecté en Songbird (SGB)
-                    const balance = await web3.eth.getBalance(address);
-                    const balanceSGB = web3.utils.fromWei(balance, 'ether');
-                    document.getElementById('balance').innerText = 'Solde: ' + balanceSGB + ' SGB';
-                });
-            } else {
-                // Si Web3 n'est pas disponible, on affiche un message d'erreur
-                document.getElementById('connect-button').disabled = true;
-                document.getElementById('address').innerText = 'Web3 n\'est pas disponible';
-            }
-        });
-    </script>
-	<h>Interface de swap</h1>
-	<label for="amount">Montant:</label>
-	<input type="number" id="amount" name="amount" step="any">
-	<br><br>
-	<label for="from">De:</label>
-	<select id="from" name="from">
-		<option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">WSGB</option>
-		<option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">TTK</option>
-		<!-- Ajouter d'autres options de token -->
-	</select>
-	<br><br>
-	<label for="to">À:</label>
-	<select id="to" name="to">
-		<option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">WSGB</option>
-		<option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">TTK</option>
-		<!-- Ajouter d'autres options de token -->
-	</select>
-	<br><br>
-	<button onclick="swap()">Swap</button>
-	<br><br>
-	<p id="result"></p>
+                   
+                const balance = await web3.eth.getBalance(address);
+                document.getElementById('balance').innerText = 'Solde: ' + web3.utils.fromWei(balance, 'ether') + ' SGB';
+            });
+        } else {
+            // Si Web3 n'est pas disponible, on informe l'utilisateur
+            document.getElementById('address').innerText = "Web3 n'est pas disponible. Veuillez installer un portefeuille compatible avec Web3 pour utiliser cette application.";
+        }
+    });
 
-	<script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"></script>
-	<script>
-		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		const signer = provider.getSigner();
-		const abi = [
+    // Fonction pour effectuer le swap
+    async function swap() {
+        const amount = document.getElementById('amount').value;
+        const from = document.getElementById('from').value;
+        const to = document.getElementById('to').value;
+   const ABI = [
 	{
 		"inputs": [
 			{
@@ -348,19 +347,18 @@
 		"stateMutability": "view",
 		"type": "function"
 	}
-]; // Insérer l'ABI du contrat ici
-		const contractAddress = "0x3c5B82e99de08BEca60f53393a856836F3909162"; // Insérer l'adresse du contrat ici
-		const contract = new ethers.Contract(contractAddress, abi, signer);
+];
 
-		async function swap() {
-			const amount = document.getElementById("amount").value;
-			const fromToken = document.getElementById("from").value;
-			const toToken = document.getElementById("to").value;
-			const overrides = { gasLimit: 500000 };
-			const tx = await contract.swap(amount, fromToken, toToken, overrides);
-			await tx.wait();
-			document.getElementById("result").innerHTML = "Swap effectué avec succès !";
-		}
-	</script>
+
+        // On utilise l'ABI pour créer une instance du contrat à partir de son adresse
+        const contract = new web3.eth.Contract(ABI, 0x3c5B82e99de08BEca60f53393a856836F3909162 );
+
+        // On effectue l'appel à la fonction swap du contrat avec les paramètres donnés
+        await contract.methods.swap(amount, from, to).send({ from: web3.eth.defaultAccount });
+
+        // On affiche le résultat
+        document.getElementById('result').innerText = 'Le swap a été effectué avec succès !';
+    }
+</script>
 </body>
 </html>
