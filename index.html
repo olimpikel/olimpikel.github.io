@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Mon site avec Web3.js</title>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
 </head>
 <body>
-    <h1>Mon site avec Web3.js</h1>
+<h1>Mon site avec Web3.js</h1>
     <button id="connect-button">Connecter son portefeuille</button>
     <div id="address"></div>
     <div id="balance"></div>
@@ -40,5 +39,328 @@
             }
         });
     </script>
+	<h>Interface de swap</h1>
+	<label for="amount">Montant:</label>
+	<input type="number" id="amount" name="amount" step="any">
+	<br><br>
+	<label for="from">De:</label>
+	<select id="from" name="from">
+		<option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">WSGB</option>
+		<option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">TTK</option>
+		<!-- Ajouter d'autres options de token -->
+	</select>
+	<br><br>
+	<label for="to">À:</label>
+	<select id="to" name="to">
+		<option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">WSGB</option>
+		<option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">TTK</option>
+		<!-- Ajouter d'autres options de token -->
+	</select>
+	<br><br>
+	<button onclick="swap()">Swap</button>
+	<br><br>
+	<p id="result"></p>
+
+	<script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"></script>
+	<script>
+		const provider = new ethers.providers.Web3Provider(window.ethereum);
+		const signer = provider.getSigner();
+		const abi = [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_rewardOwner",
+				"type": "address"
+			},
+			{
+				"internalType": "address payable",
+				"name": "_recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_rewardEpoch",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_wrap",
+				"type": "bool"
+			}
+		],
+		"name": "claim",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_rewardAmount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_bips",
+				"type": "uint256"
+			}
+		],
+		"name": "deleguer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amountA",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amountB",
+				"type": "uint256"
+			}
+		],
+		"name": "deposit",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "fromToken",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "toToken",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "swap",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_tokenA",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_tokenB",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ratio",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "FtsoRewardManager",
+		"outputs": [
+			{
+				"internalType": "contract IFtsoRewardManager",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "FtsoRewardManagerAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRatio",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getReserves",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ratio",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "reserveA",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "reserveB",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "tokenA",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "tokenB",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "VPToken",
+		"outputs": [
+			{
+				"internalType": "contract IVPToken",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "VPTokenAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]; // Insérer l'ABI du contrat ici
+		const contractAddress = "0x3c5B82e99de08BEca60f53393a856836F3909162"; // Insérer l'adresse du contrat ici
+		const contract = new ethers.Contract(contractAddress, abi, signer);
+
+		async function swap() {
+			const amount = document.getElementById("amount").value;
+			const fromToken = document.getElementById("from").value;
+			const toToken = document.getElementById("to").value;
+			const overrides = { gasLimit: 500000 };
+			const tx = await contract.swap(amount, fromToken, toToken, overrides);
+			await tx.wait();
+			document.getElementById("result").innerHTML = "Swap effectué avec succès !";
+		}
+	</script>
 </body>
 </html>
