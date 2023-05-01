@@ -1,373 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mon site avec Web3.js</title>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+	<title>Swap Tokens</title>
 </head>
 <body>
-    <h1>Mon site avec Web3.js</h1>
-    <button id="connect-button">Connecter son portefeuille</button>
-    <div id="address"></div>
+	<h1>Swap Tokens</h1>
+	<label for="fromToken">From Token:</label>
+	<select id="fromToken">
+		<option value="0x0000000000000000000000000000000000000000">Select Token A</option>
+		<option value="0x0000000000000000000000000000000000000001">Select Token B</option>
+	</select>
+	<br>
+	<label for="toToken">To Token:</label>
+	<select id="toToken">
+		<option value="0x0000000000000000000000000000000000000000">Select Token A</option>
+		<option value="0x0000000000000000000000000000000000000001">Select Token B</option>
+	</select>
+	<br>
+	<label for="amount">Amount:</label>
+	<input type="number" id="amount" name="amount" min="0" step="any">
+	<br>
+	<button onclick="swap()">Swap</button>
+    <br>
+    <br>
     <div id="balance"></div>
-    <h2>Interface de swap</h2>
-    <label for="amount">Montant:</label>
-    <input type="number" id="amount" name="amount" step="any">
-    <br><br>
-    <label for="from">De:</label>
-    <select id="from" name="from">
-        <option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">WSGB</option>
-        <option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">TTK</option>
-        <!-- Ajouter d'autres options de token -->
-    </select>
-    <br><br>
-    <label for="to">À:</label>
-    <select id="to" name="to">
-        <option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">WSGB</option>
-        <option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">TTK</option>
-        <!-- Ajouter d'autres options de token -->
-    </select>
-    <br><br>
-    <button onclick="swap()">Swap</button>
-    <br><br>
-    <p id="result"></p>
-    <script>
-        // On attend que la page soit chargée
-        window.addEventListener('load', async () => {
-            // On vérifie si Web3 est disponible
-            if (typeof web3 !== 'undefined') {
-                // On crée une instance de Web3 avec le fournisseur du portefeuille de l'utilisateur
-                web3 = new Web3(web3.currentProvider);
-
-                // On ajoute un gestionnaire d'événements pour le clic sur le bouton de connexion
-                document.getElementById('connect-button').addEventListener('click', async () => {
-                    // On demande à l'utilisateur de se connecter à son portefeuille
+	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+	<script>
+        async function connect() {
+            if (window.ethereum) {
+                try {
                     await window.ethereum.enable();
-
-                    // On récupère l'adresse du compte connecté
+                    const web3 = new Web3(window.ethereum);
                     const accounts = await web3.eth.getAccounts();
-                    const address = accounts[0];
-                    document.getElementById('address').innerText = 'Adresse: ' + address;
-
-                    // On récupère le solde du compte connecté en Songbird (SGB)
-                   
-                const balance = await web3.eth.getBalance(address);
-                document.getElementById('balance').innerText = 'Solde: ' + web3.utils.fromWei(balance, 'ether') + ' SGB';
-            });
-        } else {
-            // Si Web3 n'est pas disponible, on informe l'utilisateur
-            document.getElementById('address').innerText = "Web3 n'est pas disponible. Veuillez installer un portefeuille compatible avec Web3 pour utiliser cette application.";
+                    const balance = await web3.eth.getBalance(accounts[0]);
+                    document.getElementById("balance").innerHTML = "Balance: " + balance / 1e18 + " SGB";
+                } catch (error) {
+                    console.error(error);
+                }
+            } else {
+                console.error("MetaMask not detected.");
+            }
         }
-    });
 
-    // Fonction pour effectuer le swap
-      const ABI = [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_rewardOwner",
-				"type": "address"
-			},
-			{
-				"internalType": "address payable",
-				"name": "_recipient",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_rewardEpoch",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "_wrap",
-				"type": "bool"
-			}
-		],
-		"name": "claim",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "_rewardAmount",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_bips",
-				"type": "uint256"
-			}
-		],
-		"name": "deleguer",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amountA",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amountB",
-				"type": "uint256"
-			}
-		],
-		"name": "deposit",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "fromToken",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "toToken",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "swap",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_tokenA",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_tokenB",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_ratio",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [],
-		"name": "FtsoRewardManager",
-		"outputs": [
-			{
-				"internalType": "contract IFtsoRewardManager",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "FtsoRewardManagerAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getRatio",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getReserves",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "ratio",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "reserveA",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "reserveB",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "tokenA",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "tokenB",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "VPToken",
-		"outputs": [
-			{
-				"internalType": "contract IVPToken",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "VPTokenAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-];
-	    
-	    const contractAddress = "0x3c5B82e99de08BEca60f53393a856836F3909162";
-const contract = new web3.eth.Contract(ABI, contractAddress);
-	    
-	    async function swap() {
-    const amount = document.getElementById('amount').value;
-    const from = document.getElementById('from').value;
-    const to = document.getElementById('to').value;
+        connect();
 
-    // Appel de la fonction swap du contrat intelligent
-    const result = await contract.methods.swap(amount, from, to).send();
-
-    // Affichage du résultat
-    document.getElementById('result').innerText = JSON.stringify(result);
-}
+		async function swap() {
+			const fromToken = document.getElementById("fromToken").value;
+			const toToken = document.getElementById("toToken").value;
+			const amount = document.getElementById("amount").value;
 
 
+			// You can replace the contract address below with the actual address of your contract
+			const contractAddress = "0x3c5B82e99de08BEca60f53393a856836F3909162";
+			const contractAbi = [
+				{
+					"inputs": [
+						{
+							"internalType": "address",
+							"name": "fromToken",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "toToken",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amount",
+							"type": "uint256"
+						}
+					],
+					"name": "swap",
+					"outputs": [],
+					"stateMutability": "nonpayable",
+					"type": "function"
+				}
+			];
 
-        // On effectue l'appel à la fonction swap du contrat avec les paramètres donnés
-        await contract.methods.swap(amount, from, to).send({ from: web3.eth.defaultAccount });
+const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
-        // On affiche le résultat
-        document.getElementById('result').innerText = 'Le swap a été effectué avec succès !';
-    }
-</script>
+			const web3 = new Web3(window.ethereum);
+			const accounts = await web3.eth.getAccounts();
+			await contract.methods.swap(fromToken, toToken, amount).send({ from: accounts[0] });
+		}
+	</script>
 </body>
 </html>
