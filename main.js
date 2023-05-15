@@ -841,7 +841,7 @@ async function displayUserData() {
     // Appel à la méthode getUserData de votre contrat
     const userData = await contract.methods.getUserData(addressToCheck).call({ from: accounts[0] });
 
-    document.getElementById("userDataDisplay").innerHTML = 
+    document.getElementById("userData").innerHTML = 
         `FXRP Balance: ${userData.fxrpBalance}<br>` +
         `Collateral: ${userData.collateral}<br>` +
         `User Address: ${userData.userAddress}`;
