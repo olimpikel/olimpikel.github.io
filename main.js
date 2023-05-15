@@ -830,8 +830,8 @@ async function connect() {
 
 async function recupprix() {
     try {
-        const xrpPrix = await ftsoregistryproxy.methods.getCurrentPrice(XRP_PRICE_INDEX).call();
-        const wSGBPrix = await ftsoregistryproxy.methods.getCurrentPrice(WSGB_PRICE_INDEX).call();
+        const xrpPrix = await ftsoregistryproxy.methods.getCurrentPrice(0).call();
+        const wSGBPrix = await ftsoregistryproxy.methods.getCurrentPrice(11).call();
         return { xrpPrix, wSGBPrix };
     } catch (error) {
         console.error(error);
