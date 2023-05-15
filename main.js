@@ -797,11 +797,13 @@ const abi = [
 ]; // Remplacez [...] par votre ABI
 const contractAddress = "0x0B742279F379aBfBb8892f1954565b9Ec04503b9"; // Remplacez 0x... par l'adresse de votre contrat
 
+let web3;
+
 async function connect() {
     if (window.ethereum) {
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' });
-            const web3 = new Web3(window.ethereum);
+            web3 = new Web3(window.ethereum);
             const accounts = await web3.eth.getAccounts();
             const balance = await web3.eth.getBalance(accounts[0]);
             document.getElementById("balance").innerHTML = "Balance: " + balance / 1e18 + " SGB";
