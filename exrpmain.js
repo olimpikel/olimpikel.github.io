@@ -1,8 +1,6 @@
 const abi = require('./exrpabi.json');
 const contractAddress = "0x0B742279F379aBfBb8892f1954565b9Ec04503b9"; // Remplacez 0x... par l'adresse de votre contrat
 
-let web3;
-
 async function connect() {
     if (window.ethereum) {
         try {
@@ -21,6 +19,8 @@ async function connect() {
         console.error("MetaMask not detected.");
     }
 }
+
+let web3;
 
 
 async function mint() {
