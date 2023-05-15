@@ -831,5 +831,20 @@ async function mint() {
     await contract.methods.mint(fxrpmontantenwei, collateralpourcentage).send({ from: accounts[0] });
 }
 
+async function displayUserData() {
+    const addressToCheck = document.getElementById("addressToCheck").value;
+
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(abi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
+
+    // Appel à la méthode getUserData de votre contrat
+    const userData = await contract.methods.getUserData(addressToCheck).call({ from: accounts[0] });
+
+    document.getElementById("userDataDisplay").innerHTML = 
+        `FXRP Balance: ${userData.fxrpBalance}<br>` +
+        `Collateral: ${userData.collateral}<br>` +
+        `User Address: ${userData.userAddress}`;
+}
 
 
