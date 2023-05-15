@@ -839,7 +839,11 @@ async function displayUserData() {
     const accounts = await web3.eth.getAccounts();
 
     // Appel à la méthode getUserData de votre contrat
-    const [fxrpBalance, collateral, userAddress] = await contract.methods.getUserData(addressToCheck).call({ from: accounts[0] });
+    const userData = await contract.methods.getUserData(addressToCheck).call({ from: accounts[0] });
+
+    const fxrpBalance = userData.fxrpBalance;
+    const collateral = userData.collateral;
+    const userAddress = userData.userAddress;
 
     document.getElementById("userData").innerHTML = 
         `FXRP Balance: ${web3.utils.fromWei(fxrpBalance, 'ether')}<br>` +
