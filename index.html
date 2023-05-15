@@ -1,161 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<title>Swap Tokens</title>
+    <title>Interface de Contrat</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.2.9/dist/web3.min.js"></script>
+    <script src="main.js"></script>
 </head>
 <body>
-	<h1>Swap Tokens</h1>
-	<label for="fromToken">From Token:</label>
-	<select id="fromToken">
-		<option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">Select Token A</option>
-		<option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">Select Token B</option>
-	</select>
-	<br>
-	<label for="toToken">To Token:</label>
-	<select id="toToken">
-		<option value="0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED">Select Token A</option>
-		<option value="0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27">Select Token B</option>
-	</select>
-	<br>
-	<label for="amount">Amount:</label>
-	<input type="number" id="amount" name="amount" min="0" step="any">
-	<br>
-	<button onclick="approveTokenA()">Approve Token A</button>
-	<button onclick="approveTokenB()">Approve Token B</button>
-	<button onclick="swap()">Swap</button>
-    <br>
-    <br>
+    <button onclick="connect()">Connecter</button>
     <div id="balance"></div>
-	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-	<script>
-async function connect() {
-    if (window.ethereum) {
-        try {
-            await window.ethereum.enable();
-            const web3 = new Web3(window.ethereum);
-            const accounts = await web3.eth.getAccounts();
-            const balance = await web3.eth.getBalance(accounts[0]);
-            document.getElementById("balance").innerHTML = "Balance: " + balance / 1e18 + " SGB";
-        } catch (error) {
-            console.error(error);
-        }
-    } else {
-        console.error("MetaMask not detected.");
-    }
-}
-async function approveTokenA() {
-    const tokenAAddress = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
-	const contractAddress = "0x3c5B82e99de08BEca60f53393a856836F3909162";
-    const tokenAAbi = [
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "approve",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }
-    ];
-    const web3 = new Web3(window.ethereum);
-    const tokenA = new web3.eth.Contract(tokenAAbi, tokenAAddress);
-    const amount = document.getElementById("amount").value;
-    const accounts = await web3.eth.getAccounts();
-    await tokenA.methods.approve(contractAddress, amount).send({ from: accounts[0] });
-}
-
-async function approveTokenB() {
-    const tokenBAddress = "0xd27EE5DfE38662E93eB92F630F514b4B09aa6a27";
-	const contractAddress = "0x3c5B82e99de08BEca60f53393a856836F3909162";
-    const tokenBAbi = [
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "approve",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }
-    ];
-    const web3 = new Web3(window.ethereum);
-    const tokenB = new web3.eth.Contract(tokenBAbi, tokenBAddress);
-    const amount = document.getElementById("amount").value;
-    const accounts = await web3.eth.getAccounts();
-    await tokenB.methods.approve(contractAddress, amount).send({ from: accounts[0] });
-}
-
-async function swap() {
-    const fromToken = document.getElementById("fromToken").value;
-    const toToken = document.getElementById("toToken").value;
-    const amount = document.getElementById("amount").value;
-
-    const contractAddress = "0x3c5B82e99de08BEca60f53393a856836F3909162";
-    const contractAbi = [
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "fromToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "toToken",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "swap",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        }
-    ];
-
-    const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(contractAbi, contractAddress);
-    const accounts = await web3.eth.getAccounts();
-
-    await contract.methods.swap(fromToken, toToken, amount).send({ from: accounts[0] });
-}
-
-</script>
-<button onclick="connect()">Connect Wallet</button>
+    <hr>
+    <h2>Mint</h2>
+    <label for="fxrpmontantenwei">Montant FXRP en wei:</label><br>
+    <input type="number" id="fxrpmontantenwei" name="fxrpmontantenwei"><br>
+    <label for="collateralpourcentage">Pourcentage Collateral:</label><br>
+    <input type="number" id="collateralpourcentage" name="collateralpourcentage"><br>
+    <button onclick="mint(document.getElementById('fxrpmontantenwei').value, document.getElementById('collateralpourcentage').value)">Mint</button>
+    <hr>
+    <h2>Burn</h2>
+    <label for="fxrpAmount">Montant FXRP:</label><br>
+    <input type="number" id="fxrpAmount" name="fxrpAmount"><br>
+    <button onclick="burn(document.getElementById('fxrpAmount').value)">Burn</button>
+    <hr>
+    <h2>Liquidation Externe Total</h2>
+    <label for="userAddress">Adresse Utilisateur:</label><br>
+    <input type="text" id="userAddress" name="userAddress"><br>
+    <button onclick="liquidationexterrnetotal(document.getElementById('userAddress').value)">Liquidation</button>
+    <hr>
+    <h2>Ajouter Collateral</h2>
+    <label for="additionalCollateral">Collateral supplémentaire:</label><br>
+    <input type="number" id="additionalCollateral" name="additionalCollateral"><br>
+    <button onclick="addCollateral(document.getElementById('additionalCollateral').value)">Ajouter Collateral</button>
+    <hr>
+    <h2>Retirer Collateral</h2>
+    <label for="collateralToWithdraw">Collateral à retirer:</label><br>
+    <input type="number" id="collateralToWithdraw" name="collateralToWithdraw"><br>
+    <button onclick="exitCollateral(document.getElementById('collateralToWithdraw').value)">Retirer Collateral</button>
+<hr>
+    <h2>Obtenir les données de l'utilisateur</h2>
+    <label for="addressToCheck">Adresse à vérifier :</label><br>
+    <input type="text" id="addressToCheck" name="addressToCheck"><br>
+    <button onclick="displayUserData(document.getElementById('addressToCheck').value)">Obtenir les données</button>
+    <div id="userDataDisplay"></div>
+    <hr>
+    <button onclick="getUndercollateralizedUsers()">Récupérer utilisateurs sous-collatéralisés</button>
 </body>
 </html>
