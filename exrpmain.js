@@ -857,15 +857,23 @@ async function getPrix() {
         const contract = new web3.eth.Contract(abi, contractAddress);
         const accounts = await web3.eth.getAccounts();
         const result = await contract.methods.recupprix().call({ from: accounts[0] });
-        const xrpprix = Number(result.xrpPrix);
-        const wsgbprix = Number(result.wSGBPrix);
-        document.getElementById("result").innerHTML =
-            `FXRP Price: ${xrpprix.toLocaleString(undefined, { minimumFractionDigits: 5 })}<br>` +
-            `wSGB Price: ${wsgbprix.toLocaleString(undefined, { minimumFractionDigits: 5 })}<br>`;
+
+        // Multiply by 10*13
+        const xrpprix = Number(result.xrpPrix) * 10 * 13;
+        const wsgbprix = Number(result.wSGBPrix) * 10 * 13;
+
+        // Convert to ETH
+        const xrpprixInEth = web3.utils.fromWei(xrpprix.toString(), 'ether');
+        const wsgbprixInEth = web3.utils.fromWei(wsgbprix.toString(), 'ether');
+
+        // Use the values
+        document.getElementById("result").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}`;
+
     } catch (error) {
         console.error("An error occurred: ", error);
     }
 }
+
 
 
 
