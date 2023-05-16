@@ -856,15 +856,16 @@ async function getPrix() {
         const web3 = new Web3(window.ethereum);
         const contract = new web3.eth.Contract(abi, contractAddress);
         const accounts = await web3.eth.getAccounts();
-        const result = await contract.methods.recupprix().call({from: accounts[0] });
-        const xrpprix = result.xrpPrix;
-        const wsgbprix = result.wSGBPrix;
-        document.getElementById("result").innerHTML = 
-            `FXRP Balance: ${web3.utils.fromWei(xrpprix, 'ether')}<br>` +
-            `Collateral: ${web3.utils.fromWei(wsgbprix, 'ether')}<br>`;
+        const result = await contract.methods.recupprix().call({ from: accounts[0] });
+        const xrpprix = parseFloat(result.xrpPrix);
+        const wsgbprix = parseFloat(result.wSGBPrix);
+        document.getElementById("result").innerHTML =
+            `FXRP Price: ${xrpprix.toFixed(5)}<br>` + // Affichage du prix XRP avec une virgule flottante à la cinquième décimale
+            `wSGB Price: ${wsgbprix.toFixed(5)}<br>`; // Affichage du prix wSGB avec une virgule flottante à la cinquième décimale
     } catch (error) {
         console.error("An error occurred: ", error);
     }
 }
+
 
 
