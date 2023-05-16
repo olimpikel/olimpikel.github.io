@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EAGLE-LINK</title>
+    <style>
+        /* Supprime le background */
+        body {
+            background: none;
+            font-family: Arial, sans-serif; /* Utilise une police plus moderne */
+            color: #333; /* Utilise une couleur de texte plus foncée */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Styles pour l'en-tête */
+        #header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            background-color: #eee; /* Utilise une couleur de fond plus claire */
+            width: 100%;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour donner un effet de profondeur */
+        }
+        /* Styles pour le titre */
+        h1 {
+            margin: 0;
+        }
+        /* Réduit la taille de l'image */
+        img {
+            width: 100px; /* Ajustez cette valeur selon vos besoins */
+            height: auto;
+        }
+        /* Styles pour les liens de l'en-tête */
+        #header a {
+            margin: 0 15px; /* Ajustez cette valeur selon vos besoins */
+            text-decoration: none; /* Supprime le soulignement */
+            color: black; /* Ajustez cette couleur selon vos besoins */
+        }
+        /* Styles pour le contenu */
+        #content {
+            margin-top: 20px;
+            width: 80%; /* Limite la largeur du contenu à 80% de la largeur de la page */
+            text-align: justify; /* Justifie le texte */
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>EAGLE-LINK</h1>
+        <img src="aigle.png" alt="EAGLE LINK">
+        <div>
+            <a href="index.html">Acceuil</a> 
+            <a href="page2.html">FtsoPrixExchange</a> 
+            <a href="page3.html">DEX pool liquidité</a> 
+            <a href="exrp.html">S-ASSET</a> 
+            <a href="info.html">Informations</a>
+        </div>
+    </div>
+    <div id="content">
+        <p>
+          Le contrat du S-asset utilise différentes bibliothèques importées depuis OpenZeppelin, telles que ERC20, Pausable, SafeERC20 et SafeMath, pour la sécurité et la gestion des opérations.
+
+Il utilise également des interfaces pour interagir avec d'autres contrats, tels que IFTSORegistryProxy, IVPToken, IFtsoRewardManager, et IERC20.
+
+La structure de données "UserData" stocke les informations d'un utilisateur, notamment le solde FXRP, le collatéral et l'adresse.
+
+Le contrat prend en charge des fonctionnalités telles que la délégation de tokens à d'autres adresses, la réclamation de récompenses, et l'approbation du contrat pour gérer les tokens en nom des utilisateurs.
+
+La fonction "mint" permet aux utilisateurs de créer de nouveaux tokens FXRP en échange d'un montant spécifié en wei et d'un pourcentage de collatéral. Elle vérifie les prix des actifs, le respect des limites de collatéralisation, et met à jour les soldes des utilisateurs.
+
+La fonction "burn" permet aux utilisateurs de brûler (détruire) des tokens FXRP et de récupérer le collatéral correspondant. Elle vérifie les soldes et effectue les transferts nécessaires.
+
+Les fonctions "liquidationexterntotal" et "liquidatePositioninterieur" permettent de liquider les positions des utilisateurs, en transférant le collatéral aux parties concernées et en brûlant les tokens FXRP.
+
+D'autres fonctions sont disponibles pour récupérer les données des utilisateurs, ajouter ou retirer du collatéral, fixer des limites de création de tokens, mettre le contrat en pause ou le reprendre, et récupérer les utilisateurs sous-collatéralisés.
+
+Le contrat utilise des modificateurs pour restreindre certaines fonctionnalités aux propriétaires ou aux détenteurs de tokens spécifiques.
+
+Le contrat possède également des variables d'état pour stocker les adresses des contrats, les prix des actifs, les limites de création de tokens, et l'adresse du propriétaire du contrat.
+
+Enfin, des événements peuvent être émis pour notifier les actions importantes effectuées dans le contrat.
+
+Notez que ce résumé ne couvre que les fonctionnalités principales du contrat, et il est possible qu'il existe d'autres fonctions et structures de données dans le contrat qui n'ont pas été explicitement mentionnées.
+
+Ces fonctionnalités sont utilisées pour interagir avec un contrat intelligent qui implémente la logique métier et les règles spécifiques à l'application "EAGLE-LINK" pour le token "E-XRP" mais la logique metier restera la meme pour les autres S-asset.
+
+deux fonctions sont manquante le changement a qui le smart contract delegue, et la fonction qui renvoie si vrai ou faux touts les S-asset sont bien collateraliser avec en renvoie la totalite des collateral la totalite du S-asset mint et le pourcentage de collateral de cette totalite grace aux prix en temps réel.
+   </p>
+    </div>
+</body>
+</html>
