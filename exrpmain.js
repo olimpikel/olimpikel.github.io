@@ -858,13 +858,13 @@ async function getPrix() {
         const accounts = await web3.eth.getAccounts();
         const result = await contract.methods.recupprix().call({ from: accounts[0] });
 
-        // Multiply by 10*13
-        const xrpprix = Number(result.xrpPrix) * 10 * 13;
-        const wsgbprix = Number(result.wSGBPrix) * 10 * 13;
+        // Multiply by 10*13 to convert to Wei
+        const xrpprixInWei = BigInt(result.xrpPrix * Math.pow(10, 13));
+        const wsgbprixInWei = BigInt(result.wSGBPrix * Math.pow(10, 13));
 
         // Convert to ETH
-        const xrpprixInEth = web3.utils.fromWei(xrpprix.toString(), 'ether');
-        const wsgbprixInEth = web3.utils.fromWei(wsgbprix.toString(), 'ether');
+        const xrpprixInEth = web3.utils.fromWei(xrpprixInWei.toString(), 'ether');
+        const wsgbprixInEth = web3.utils.fromWei(wsgbprixInWei.toString(), 'ether');
 
         // Use the values
         document.getElementById("result").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}`;
