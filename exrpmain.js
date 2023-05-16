@@ -857,15 +857,16 @@ async function getPrix() {
         const contract = new web3.eth.Contract(abi, contractAddress);
         const accounts = await web3.eth.getAccounts();
         const result = await contract.methods.recupprix().call({ from: accounts[0] });
-        const xrpprix = parseFloat(result.xrpPrix);
-        const wsgbprix = parseFloat(result.wSGBPrix);
+        const xrpprix = Number(result.xrpPrix);
+        const wsgbprix = Number(result.wSGBPrix);
         document.getElementById("result").innerHTML =
-            `FXRP Price: ${xrpprix.toFixed(5)}<br>` + // Affichage du prix XRP avec une virgule flottante à la cinquième décimale
-            `wSGB Price: ${wsgbprix.toFixed(5)}<br>`; // Affichage du prix wSGB avec une virgule flottante à la cinquième décimale
+            `FXRP Price: ${xrpprix.toLocaleString(undefined, { minimumFractionDigits: 5 })}<br>` +
+            `wSGB Price: ${wsgbprix.toLocaleString(undefined, { minimumFractionDigits: 5 })}<br>`;
     } catch (error) {
         console.error("An error occurred: ", error);
     }
 }
+
 
 
 
