@@ -1,16 +1,71 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Interface de Contrat</title>
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.2.9/dist/web3.min.js"></script>
-    <script src="exrpmain.js"></script>
-    <link rel="stylesheet" type="text/css" href="exrpstyle.css">
+    <title>EAGLE-LINK</title>
+    <style>
+        /* Supprime le background */
+        body {
+            background: none;
+            font-family: Arial, sans-serif; /* Utilise une police plus moderne */
+            color: #333; /* Utilise une couleur de texte plus foncée */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Styles pour l'en-tête */
+        #header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            background-color: #eee; /* Utilise une couleur de fond plus claire */
+            width: 100%;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajoute une ombre pour donner un effet de profondeur */
+        }
+        /* Styles pour le titre */
+        h1 {
+            margin: 0;
+        }
+        /* Réduit la taille de l'image */
+        img {
+            width: 100px; /* Ajustez cette valeur selon vos besoins */
+            height: auto;
+        }
+        /* Styles pour les liens de l'en-tête */
+        #header a {
+            margin: 0 15px; /* Ajustez cette valeur selon vos besoins */
+            text-decoration: none; /* Supprime le soulignement */
+            color: black; /* Ajustez cette couleur selon vos besoins */
+        }
+        /* Styles pour le contenu */
+        #content {
+            margin-top: 20px;
+            width: 80%; /* Limite la largeur du contenu à 80% de la largeur de la page */
+            text-align: justify; /* Justifie le texte */
+        }
+    </style>
 </head>
 <body>
-    <button onclick="connect()">Connecter</button>
-    <div id="balance"></div>
-    <hr>
-    <h2>Mint</h2>
+    <div id="header">
+        <h1>EAGLE-LINK</h1>
+        <img src="aigle.png" alt="EAGLE LINK">
+        <div>
+            <a href="page1.html">Acceuil 1</a> 
+            <a href="page2.html">FtsoPrixExchange</a> 
+            <a href="page3.html">DEX pool liquidité</a> 
+            <a href="page4.html">S-ASSET</a> 
+            <a href="page5.html">Informations</a>
+        </div>
+    </div>
+    <div id="content">
+        <button onclick="connect()">Connecter</button>
+        <div id="balance"></div>
+        <hr>
+        <h2>Mint</h2>
     <label for="fxrpmontantenwei">Montant FXRP en wei:</label><br>
     <input type="number" id="fxrpmontantenwei" name="fxrpmontantenwei"><br>
     <label for="collateralpourcentage">Pourcentage Collateral:</label><br>
