@@ -851,5 +851,20 @@ async function displayUserData() {
         `User Address: ${userAddress}`;
 }
 
+async function getPrix() {
+    try {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(abi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const result = await contract.methods.recupprix().call({from: accounts[0] });
+        const xrpprix = result.xrpPrix;
+        const wsgbprix = result.wSGBPrix;
+        document.getElementById("result").innerHTML = 
+            `FXRP Balance: ${web3.utils.fromWei(xrpprix, 'ether')}<br>` +
+            `Collateral: ${web3.utils.fromWei(wsgbprix, 'ether')}<br>`;
+    } catch (error) {
+        console.error("An error occurred: ", error);
+    }
+}
 
 
