@@ -872,6 +872,7 @@ async function getPrix() {
     } catch (error) {
         console.error("An error occurred: ", error);
     }
+}
 async function burn() {
     const fxrpmontantenwei = document.getElementById("fxrpAmount").value;    
 
