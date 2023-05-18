@@ -872,7 +872,7 @@ async function getPrix() {
     } catch (error) {
         console.error("An error occurred: ", error);
     }
-	async function burn() {
+async function burn() {
     const fxrpmontantenwei = document.getElementById("fxrpAmount").value;    
 
     const web3 = new Web3(window.ethereum);
@@ -881,7 +881,7 @@ async function getPrix() {
 
     await contract.methods.burn(fxrpmontantenwei).send({ from: accounts[0] });
 }
-		async function addCollateral() {
+async function addCollateral() {
     const additionalCollateral = document.getElementById("additionalCollateral").value;    
 
     const web3 = new Web3(window.ethereum);
@@ -890,7 +890,7 @@ async function getPrix() {
 
     await contract.methods.addCollateral(additionalCollateral).send({ from: accounts[0] });
 }
-			async function exitCollateral() {
+async function exitCollateral() {
     const collateralToWithdraw = document.getElementById("collateralToWithdraw").value;    
 
     const web3 = new Web3(window.ethereum);
@@ -900,9 +900,5 @@ async function getPrix() {
     await contract.methods.exitCollateral(collateralToWithdraw).send({ from: accounts[0] });
 }
 	
-}
-
-
-
 
 
