@@ -825,8 +825,8 @@ async function mint() {
     
 
     const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(abi, contractAddress);;
-    const accounts = await web3.eth.getAccounts()
+    const contract = new web3.eth.Contract(abi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
 
     await contract.methods.mint(fxrpmontantenwei, collateralpourcentage).send({ from: accounts[0] });
 }
@@ -877,7 +877,7 @@ async function burn() {
 
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(abi, contractAddress);;
-    const accounts = await web3.eth.getAccounts()
+    const accounts = await web3.eth.getAccounts();
 
     await contract.methods.burn(fxrpmontantenwei).send({ from: accounts[0] });
 }
@@ -886,7 +886,7 @@ async function addCollateral() {
 
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(abi, contractAddress);;
-    const accounts = await web3.eth.getAccounts()
+    const accounts = await web3.eth.getAccounts();
 
     await contract.methods.addCollateral(additionalCollateral).send({ from: accounts[0] });
 }
@@ -895,7 +895,7 @@ async function exitCollateral() {
 
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(abi, contractAddress);;
-    const accounts = await web3.eth.getAccounts()
+    const accounts = await web3.eth.getAccounts();
 
     await contract.methods.exitCollateral(collateralToWithdraw).send({ from: accounts[0] });
 }
