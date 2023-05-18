@@ -872,6 +872,15 @@ async function getPrix() {
     } catch (error) {
         console.error("An error occurred: ", error);
     }
+	async function burn() {
+    const fxrpmontantenwei = document.getElementById("fxrpAmount").value;    
+
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(abi, contractAddress);;
+    const accounts = await web3.eth.getAccounts()
+
+    await contract.methods.burn(fxrpmontantenwei).send({ from: accounts[0] });
+}
 }
 
 
