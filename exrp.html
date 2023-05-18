@@ -78,11 +78,10 @@
     <input type="number" id="fxrpAmount" name="fxrpAmount"><br>
     <button onclick="burn(document.getElementById('fxrpAmount').value)">Burn</button>
     <hr>
-    <h2>Liquidation Externe Total</h2>
-    <label for="userAddress">Adresse Utilisateur:</label><br>
-    <input type="text" id="userAddress" name="userAddress"><br>
-    <button onclick="liquidationexterrnetotal(document.getElementById('userAddress').value)">Liquidation</button>
-    <hr>
+        <h2>collateral en % de vos E-XRP</h2>
+<button onclick="getCollateralizationPercentage()">Obtenir votre pourcentage</button>
+<div id="result"></div>
+<hr>
     <h2>Ajouter Collateral</h2>
     <label for="additionalCollateral">Collateral supplémentaire:</label><br>
     <input type="number" id="additionalCollateral" name="additionalCollateral"><br>
@@ -93,7 +92,7 @@
     <input type="number" id="collateralToWithdraw" name="collateralToWithdraw"><br>
     <button onclick="exitCollateral(document.getElementById('collateralToWithdraw').value)">Retirer Collateral</button>
 <hr>
-    <h2>Obtenir les données de l'utilisateur</h2>
+     <h2>Obtenir les données de l'utilisateur</h2>
     <label for="addressToCheck">Adresse à vérifier :</label><br>
     <input type="text" id="addressToCheck" name="addressToCheck"><br>
     <button onclick="displayUserData()">Obtenir les données</button>
@@ -103,6 +102,11 @@
 <button onclick="getPrix()">Obtenir les prix</button>
 <div id="result"></div>
 <hr>
+    <h2>Liquidation Externe Total</h2>
+    <label for="userAddress">Adresse Utilisateur:</label><br>
+    <input type="text" id="userAddress" name="userAddress"><br>
+    <button onclick="liquidationexterrnetotal(document.getElementById('userAddress').value)">Liquidation</button>
+    <hr>
     <button onclick="getUndercollateralizedUsers()">Récupérer utilisateurs sous-collatéralisés</button>
 </body>
 </html>
