@@ -881,6 +881,25 @@ async function getPrix() {
 
     await contract.methods.burn(fxrpmontantenwei).send({ from: accounts[0] });
 }
+		async function addCollateral() {
+    const additionalCollateral = document.getElementById("additionalCollateral").value;    
+
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(abi, contractAddress);;
+    const accounts = await web3.eth.getAccounts()
+
+    await contract.methods.addCollateral(additionalCollateral).send({ from: accounts[0] });
+}
+			async function exitCollateral() {
+    const collateralToWithdraw = document.getElementById("collateralToWithdraw").value;    
+
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(abi, contractAddress);;
+    const accounts = await web3.eth.getAccounts()
+
+    await contract.methods.exitCollateral(collateralToWithdraw).send({ from: accounts[0] });
+}
+	
 }
 
 
