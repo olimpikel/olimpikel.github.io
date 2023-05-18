@@ -900,6 +900,15 @@ async function exitCollateral() {
 
     await contract.methods.exitCollateral(collateralToWithdraw).send({ from: accounts[0] });
 }
-	
+async function getCollateralizationPercentage(userAddress) {
+    try {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(abi, contractAddress);
+        const result = await contract.methods.getCollateralizationPercentage(userAddress).call();
+        document.getElementById("result").innerHTML = result;
+    } catch (error) {
+        console.error("An error occurred: ", error);
+    }
+}
 
 
