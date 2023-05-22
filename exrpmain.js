@@ -939,7 +939,7 @@ async function pourcentagecollateralisationutilisateur() {
         const web3 = new Web3(window.ethereum);
         const contract = new web3.eth.Contract(abi, contractAddress);
 	    const accounts = await web3.eth.getAccounts();
-      const result2 = await contract.methods.recupprix().call({ from: accounts[0] });
+      const result2 = await contract.methods.getUndercollateralizedUsers().call({ from: accounts[0] });
         document.getElementById("result2").innerHTML = result2;
     } catch (error) {
         console.error("An error occurred: ", error);
