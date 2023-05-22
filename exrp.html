@@ -67,16 +67,16 @@
         <div id="balance"></div>
         <hr>
         <h2>Mint</h2>
-    <label for="fxrpmontantenwei">Montant E-XRP en wei:</label><br>
-    <input type="number" id="fxrpmontantenwei" name="fxrpmontantenwei"><br>
+    <label for="EXRPmontantenwei">Montant E-XRP en wei:</label><br>
+    <input type="number" id="EXRPmontantenwei" name="fxrpmontantenwei"><br>
     <label for="collateralpourcentage">Pourcentage Collateral:</label><br>
     <input type="number" id="collateralpourcentage" name="collateralpourcentage"><br>
-    <button onclick="mint(document.getElementById('fxrpmontantenwei').value, document.getElementById('collateralpourcentage').value)">Mint</button>
+    <button onclick="mint(document.getElementById('EXRPmontantenwei').value, document.getElementById('collateralpourcentage').value)">Mint</button>
     <hr>
     <h2>Burn</h2>
-    <label for="fxrpAmount">Montant E-XRP:</label><br>
-    <input type="number" id="fxrpAmount" name="fxrpAmount"><br>
-    <button onclick="burn(document.getElementById('fxrpAmount').value)">Burn</button>
+    <label for="montantEXRPenwei">Montant E-XRP:</label><br>
+    <input type="number" id="fxrpAmount" name="montantEXRPenwei"><br>
+    <button onclick="burn(document.getElementById('montantEXRPenwei').value)">Burn</button>
     <hr>
         <h2>collateral en % de vos E-XRP</h2>
 <button onclick="getCollateralizationPercentage()">Obtenir votre pourcentage</button>
@@ -100,7 +100,7 @@
       <hr>
            <h2>Prix token Ftso</h2>
 <button onclick="getPrix()">Obtenir les prix</button>
-<div id="result"></div>
+<div id="result1"></div>
 <hr>
     <h2>Liquidation Externe Total</h2>
     <label for="userAddress">Adresse Utilisateur:</label><br>
