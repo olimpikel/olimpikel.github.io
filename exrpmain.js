@@ -869,9 +869,9 @@ async function displayUserData() {
     const userAddressEXRP = userData.userAddressEXRP;
 
     document.getElementById("userData").innerHTML = 
-        `EXRP Balance: ${web3.utils.fromWei(fxrpBalance, 'ether')}<br>` +
-        `WSGB Collateral: ${web3.utils.fromWei(collateral, 'ether')}<br>` +
-        `User Address: ${userAddress}`;
+        `EXRP Balance: ${web3.utils.fromWei(balanceEXRP, 'ether')}<br>` +
+        `WSGB Collateral: ${web3.utils.fromWei(collateralEXRP, 'ether')}<br>` +
+        `User Address: ${userAddressEXRP}`;
 }
 
 async function getPrix() {
@@ -930,6 +930,16 @@ async function pourcentagecollateralisationutilisateur() {
 	    const accounts = await web3.eth.getAccounts();
         const result = await contract.methods.pourcentagecollateralisationutilisateur(accounts[0]).call();
         document.getElementById("result").innerHTML = result;
+    } catch (error) {
+        console.error("An error occurred: ", error);
+    }
+	async function getUndercollateralizedUsers() {
+    try {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(abi, contractAddress);
+	    const accounts = await web3.eth.getAccounts();
+      const result2 = await contract.methods.recupprix().call({ from: accounts[0] });
+        document.getElementById("result2").innerHTML = result2;
     } catch (error) {
         console.error("An error occurred: ", error);
     }
