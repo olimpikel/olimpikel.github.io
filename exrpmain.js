@@ -882,8 +882,8 @@ async function getPrix() {
         const result1 = await contract.methods.recupprix().call({ from: accounts[0] });
 
         // Multiply by 10*13 to convert to Wei
-        const xrpprixInWei = BigInt(result.xrpPrix * Math.pow(10, 13));
-        const wsgbprixInWei = BigInt(result.wSGBPrix * Math.pow(10, 13));
+        const xrpprixInWei = BigInt(result1.xrpPrix * Math.pow(10, 13));
+        const wsgbprixInWei = BigInt(result1.wSGBPrix * Math.pow(10, 13));
 
         // Convert to ETH
         const xrpprixInEth = web3.utils.fromWei(xrpprixInWei.toString(), 'ether');
@@ -923,12 +923,12 @@ async function exitCollateral() {
 
     await contract.methods.exitCollateral(collateralToWithdraw).send({ from: accounts[0] });
 }
-async function getCollateralizationPercentage() {
+async function pourcentagecollateralisationutilisateur() {
     try {
         const web3 = new Web3(window.ethereum);
         const contract = new web3.eth.Contract(abi, contractAddress);
 	    const accounts = await web3.eth.getAccounts();
-        const result = await contract.methods.getCollateralizationPercentage(accounts[0]).call();
+        const result = await contract.methods.pourcentagecollateralisationutilisateur(accounts[0]).call();
         document.getElementById("result").innerHTML = result;
     } catch (error) {
         console.error("An error occurred: ", error);
