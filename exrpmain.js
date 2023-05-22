@@ -933,6 +933,7 @@ async function pourcentagecollateralisationutilisateur() {
     } catch (error) {
         console.error("An error occurred: ", error);
     }
+}
 	async function getUndercollateralizedUsers() {
     try {
         const web3 = new Web3(window.ethereum);
