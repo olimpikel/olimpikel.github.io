@@ -1,5 +1,16 @@
 const abi = [
 	{
+		"inputs": [
+			{
+				"internalType": "contract IERC20",
+				"name": "_EL",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -76,6 +87,45 @@ const abi = [
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "EL",
+		"outputs": [
+			{
+				"internalType": "contract IERC20",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "FtsoRewardManager",
+		"outputs": [
+			{
+				"internalType": "contract IFtsoRewardManager",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "VPToken",
+		"outputs": [
+			{
+				"internalType": "contract IVPToken",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -86,6 +136,30 @@ const abi = [
 		"name": "addCollateral",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -133,14 +207,79 @@ const abi = [
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
 				"internalType": "uint256",
-				"name": "fxrpAmount",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "basededonneeutilisateur",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "balanceEXRP",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "collateralEXRP",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "userAddressEXRP",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "montantEXRPenwei",
 				"type": "uint256"
 			}
 		],
 		"name": "burn",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "calculerCollateral",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "collateralMoyenEXRP",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "collateralMinEXRP",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "collateralMaxEXRP",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -175,6 +314,19 @@ const abi = [
 			}
 		],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "decimals",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -233,6 +385,84 @@ const abi = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "ftsoregistryproxy",
+		"outputs": [
+			{
+				"internalType": "contract IFTSORegistryProxy",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAverageCollateralization",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getUndercollateralizedUsers",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "adressearegarder",
+				"type": "address"
+			}
+		],
+		"name": "getUserData",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "balanceEXRP",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "collateralEXRP",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "userAddressEXRP",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -286,7 +516,7 @@ const abi = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "fxrpmontantenwei",
+				"name": "EXRPmontantenwei",
 				"type": "uint256"
 			},
 			{
@@ -302,9 +532,93 @@ const abi = [
 	},
 	{
 		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "pause",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "paused",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddress",
+				"type": "address"
+			}
+		],
+		"name": "pourcentagecollateralisationutilisateur",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ratioprix",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "ratioprixxrpwsgb",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ratioprixutilisateur",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "ratioutil",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -326,6 +640,24 @@ const abi = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "recupprix",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "xrpPrix",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "wSGBPrix",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -336,6 +668,32 @@ const abi = [
 		"name": "setMintLimit",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -401,334 +759,12 @@ const abi = [
 	{
 		"inputs": [
 			{
-				"internalType": "contract IERC20",
-				"name": "_EL",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			}
-		],
-		"name": "allowance",
-		"outputs": [
-			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "balanceOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "calculerCollateral",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "collateralMoyen",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "collateralMin",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "collateralMax",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "decimals",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "EL",
-		"outputs": [
-			{
-				"internalType": "contract IERC20",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "ftsoregistryproxy",
-		"outputs": [
-			{
-				"internalType": "contract IFTSORegistryProxy",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "FtsoRewardManager",
-		"outputs": [
-			{
-				"internalType": "contract IFtsoRewardManager",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "userAddress",
-				"type": "address"
-			}
-		],
-		"name": "getCollateralizationPercentage",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getCurrentUserData",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "fxrpBalance",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "collateral",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "userAddress",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getUndercollateralizedUsers",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "adressearegarder",
-				"type": "address"
-			}
-		],
-		"name": "getUserData",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "fxrpBalance",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "collateral",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "userAddress",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "name",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "paused",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "ratioprix",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "ratioprixxrpwsgb",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "ratioprixutilisateur",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "ratioutil",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "recupprix",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "xrpPrix",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "wSGBPrix",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "symbol",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "totalSupply",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "userAddresses",
+		"name": "userAddressesEXRP",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -751,30 +787,17 @@ const abi = [
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "fxrpBalance",
+				"name": "balanceEXRP",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "collateral",
+				"name": "collateralEXRP",
 				"type": "uint256"
 			},
 			{
 				"internalType": "address",
-				"name": "userAddress",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "VPToken",
-		"outputs": [
-			{
-				"internalType": "contract IVPToken",
-				"name": "",
+				"name": "userAddressEXRP",
 				"type": "address"
 			}
 		],
@@ -795,7 +818,7 @@ const abi = [
 		"type": "function"
 	}
 ];
-const contractAddress = "0x0B742279F379aBfBb8892f1954565b9Ec04503b9"; // Remplacez 0x... par l'adresse de votre contrat
+const contractAddress = "0x89448954240C639d2626864e3993982013027ed1";
 
 
 let web3;
@@ -820,7 +843,7 @@ async function connect() {
 }
 
 async function mint() {
-    const fxrpmontantenwei = document.getElementById("fxrpmontantenwei").value;
+    const EXRPmontantenwei = document.getElementById("EXRPmontantenwei").value;
     const collateralpourcentage = document.getElementById("collateralpourcentage").value;
     
 
@@ -828,7 +851,7 @@ async function mint() {
     const contract = new web3.eth.Contract(abi, contractAddress);
     const accounts = await web3.eth.getAccounts();
 
-    await contract.methods.mint(fxrpmontantenwei, collateralpourcentage).send({ from: accounts[0] });
+    await contract.methods.mint(EXRPmontantenwei, collateralpourcentage).send({ from: accounts[0] });
 }
 
 async function displayUserData() {
@@ -841,13 +864,13 @@ async function displayUserData() {
     // Appel à la méthode getUserData de votre contrat
     const userData = await contract.methods.getUserData(addressToCheck).call({ from: accounts[0] });
 
-    const fxrpBalance = userData.fxrpBalance;
-    const collateral = userData.collateral;
-    const userAddress = userData.userAddress;
+    const balanceEXRP = userData.balanceEXRP;
+    const collateralEXRP = userData.collateralEXRP;
+    const userAddressEXRP = userData.userAddressEXRP;
 
     document.getElementById("userData").innerHTML = 
-        `FXRP Balance: ${web3.utils.fromWei(fxrpBalance, 'ether')}<br>` +
-        `Collateral: ${web3.utils.fromWei(collateral, 'ether')}<br>` +
+        `EXRP Balance: ${web3.utils.fromWei(fxrpBalance, 'ether')}<br>` +
+        `WSGB Collateral: ${web3.utils.fromWei(collateral, 'ether')}<br>` +
         `User Address: ${userAddress}`;
 }
 
@@ -856,7 +879,7 @@ async function getPrix() {
         const web3 = new Web3(window.ethereum);
         const contract = new web3.eth.Contract(abi, contractAddress);
         const accounts = await web3.eth.getAccounts();
-        const result = await contract.methods.recupprix().call({ from: accounts[0] });
+        const result1 = await contract.methods.recupprix().call({ from: accounts[0] });
 
         // Multiply by 10*13 to convert to Wei
         const xrpprixInWei = BigInt(result.xrpPrix * Math.pow(10, 13));
@@ -867,20 +890,20 @@ async function getPrix() {
         const wsgbprixInEth = web3.utils.fromWei(wsgbprixInWei.toString(), 'ether');
 
         // Use the values
-        document.getElementById("result").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}`;
+        document.getElementById("result1").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}`;
 
     } catch (error) {
         console.error("An error occurred: ", error);
     }
 }
 async function burn() {
-    const fxrpmontantenwei = document.getElementById("fxrpAmount").value;    
+    const montantEXRPenwei = document.getElementById("montantEXRPenwei").value;    
 
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(abi, contractAddress);;
     const accounts = await web3.eth.getAccounts();
 
-    await contract.methods.burn(fxrpmontantenwei).send({ from: accounts[0] });
+    await contract.methods.burn(montantEXRPenwei).send({ from: accounts[0] });
 }
 async function addCollateral() {
     const additionalCollateral = document.getElementById("additionalCollateral").value;    
