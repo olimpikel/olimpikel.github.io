@@ -952,10 +952,13 @@ async function getAverageCollateralization() {
         const contract = new web3.eth.Contract(abi, contractAddress);
         const accounts = await web3.eth.getAccounts();
         const result3 = await contract.methods.getAverageCollateralization().call({ from: accounts[0] });
-document.getElementById("result3").innerHTML = result3;
+        document.getElementById("totalCollateralEXRP").innerHTML = result3[0];
+        document.getElementById("totalEXRP").innerHTML = result3[1];
+        document.getElementById("collateralizationPercentage").innerHTML = result3[2];
 
     } catch (error) {
         console.error("An error occurred: ", error);
     }
 }
+
 
