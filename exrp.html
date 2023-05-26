@@ -56,9 +56,9 @@
         <img src="aigle.png" alt="EAGLE LINK">
         <div>
             <a href="index.html">Acceuil</a> 
-            <a href="page2.html">FtsoPrixExchange</a> 
-            <a href="page3.html">DEX pool liquidité</a> 
-            <a href="exrp.html">S-ASSET</a> 
+            <a href="venteexrp.html">FtsoPrixExchange</a> 
+            <a href="page3.html">personnal trading</a> 
+            <a href="easset.html">S-ASSET</a> 
             <a href="info.html">Informations</a>
         </div>
     </div>
@@ -107,7 +107,12 @@
     <input type="text" id="userAddress" name="userAddress"><br>
     <button onclick="liquidationexterrnetotal(document.getElementById('userAddress').value)">Liquidation</button>
     <hr>
-    <button onclick="getUndercollateralizedUsers()">Récupérer utilisateurs sous-collatéralisés</button>
+       <h2>Utilisateurs pouvant etre liquide <140% </h2>
+    <button onclick="getUndercollateralizedUsers()">Récupérer utilisateurs <140% </button>
         <div id="result2"></div>
+<hr>
+           <h2>informations sur la totalite des E-XRP</h2>
+<button onclick="getAverageCollateralization()">Obtenir les informations</button>
+<div id="result3"></div>
 </body>
 </html>
