@@ -972,9 +972,9 @@ async function calculerCollateral() {
 	           const collateralMoyenEXRP = web3.utils.fromWei(result4[0].toString(), 'ether');
         const collateralMinEXRP = web3.utils.fromWei(result4[1].toString(), 'ether');
 	    const collateralMaxEXRP = web3.utils.fromWei(result4[2].toString(), 'ether');
-        document.getElementById("collateralMoyenEXRP").innerHTML = result4[0];
-        document.getElementById("collateralMinEXRP").innerHTML = result4[1];
-        document.getElementById("collateralMaxEXRP").innerHTML = result4[2];
+        document.getElementById("collateralMoyenEXRP").innerHTML = collateralMoyenEXRP;
+        document.getElementById("collateralMinEXRP").innerHTML = collateralMinEXRP;
+        document.getElementById("collateralMaxEXRP").innerHTML = collateralMaxEXRP;
 	    
     } catch (error) {
         console.error("An error occurred: ", error);
