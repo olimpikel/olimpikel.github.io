@@ -66,6 +66,14 @@
         <button onclick="connect()">Connecter</button>
         <div id="balance"></div>
         <hr>
+<h2>Informations sur la totalité des E-XRP</h2>
+<button onclick="getAverageCollateralization()">Obtenir les informations</button>
+<div>
+    <p>Total Collateral EXRP: <span id="totalCollateralEXRP"></span></p>
+    <p>Total EXRP: <span id="totalEXRP"></span></p>
+    <p>Collateralization Percentage: <span id="collateralizationPercentage"></span></p>
+</div>
+         <hr>
 <h2>Informations sur le collateral de 1 E-XRP</h2>
 <button onclick="calculerCollateral()">collateral requis pour 1 E-XRP </button> 
 <div>
@@ -74,7 +82,10 @@
     <p>Collateral 1 E-XRP 400 pourcent maxi: <span id="collateralMaxEXRP"></span></p>
     </div>
        <hr>
-    
+               <h2>Prix token Ftso</h2>
+<button onclick="getPrix()">Obtenir les prix</button>
+<div id="result1"></div>
+<hr>
         <h2>Mint</h2>
     <label for="EXRPmontantenwei">Montant E-XRP en wei:</label><br>
     <input type="number" id="EXRPmontantenwei" name="fxrpmontantenwei"><br>
@@ -107,10 +118,6 @@
     <button onclick="displayUserData()">Obtenir les données</button>
     <div id="userData"></div>
       <hr>
-           <h2>Prix token Ftso</h2>
-<button onclick="getPrix()">Obtenir les prix</button>
-<div id="result1"></div>
-<hr>
     <h2>Liquidation Externe Total</h2>
     <label for="userAddress">Adresse Utilisateur:</label><br>
     <input type="text" id="userAddress" name="userAddress"><br>
@@ -119,14 +126,6 @@
        <h2>Utilisateurs pouvant etre liquide <140 pourcent </h2>
     <button onclick="getUndercollateralizedUsers()">Récupérer utilisateurs <140 pourcent </button>
         <div id="result2"></div>
-<hr>
-<h2>Informations sur la totalité des E-XRP</h2>
-<button onclick="getAverageCollateralization()">Obtenir les informations</button>
-<div>
-    <p>Total Collateral EXRP: <span id="totalCollateralEXRP"></span></p>
-    <p>Total EXRP: <span id="totalEXRP"></span></p>
-    <p>Collateralization Percentage: <span id="collateralizationPercentage"></span></p>
-</div>
 
 </body>
 </html>
