@@ -961,4 +961,19 @@ async function getAverageCollateralization() {
     }
 }
 
+async function calculerCollateral() {
+    try {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(abi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const result4 = await contract.methods.calculerCollateral().call({ from: accounts[0] });
+        document.getElementById("collateralMoyenEXRP").innerHTML = result4[0];
+        document.getElementById("collateralMinEXRP").innerHTML = result4[1];
+        document.getElementById("collateralMaxEXRP").innerHTML = result4[2];
+
+    } catch (error) {
+        console.error("An error occurred: ", error);
+    }
+}
+
 
