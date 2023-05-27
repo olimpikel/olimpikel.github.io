@@ -967,10 +967,15 @@ async function calculerCollateral() {
         const contract = new web3.eth.Contract(abi, contractAddress);
         const accounts = await web3.eth.getAccounts();
         const result4 = await contract.methods.calculerCollateral().call({ from: accounts[0] });
+	    
+	    
+	           const collateralMoyenEXRP = web3.utils.fromWei(result4[0].toString(), 'ether');
+        const collateralMinEXRP = web3.utils.fromWei(result4[1].toString(), 'ether');
+	    const collateralMaxEXRP = web3.utils.fromWei(result4[2].toString(), 'ether');
         document.getElementById("collateralMoyenEXRP").innerHTML = result4[0];
         document.getElementById("collateralMinEXRP").innerHTML = result4[1];
         document.getElementById("collateralMaxEXRP").innerHTML = result4[2];
-
+	    
     } catch (error) {
         console.error("An error occurred: ", error);
     }
