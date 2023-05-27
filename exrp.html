@@ -66,6 +66,15 @@
         <button onclick="connect()">Connecter</button>
         <div id="balance"></div>
         <hr>
+<h2>Informations sur le collateral de 1 E-XRP</h2>
+<button onclick="calculerCollateral()">collateral requis pour 1 E-XRP </button> 
+<div>
+    <p>Total Collateral EXRP: <span id="collateralMoyenEXRP"></span></p>
+    <p>Total EXRP: <span id="collateralMinEXRP"></span></p>
+    <p>Collateralization Percentage: <span id="collateralMaxEXRP"></span></p>
+    </div>
+       <hr>
+    
         <h2>Mint</h2>
     <label for="EXRPmontantenwei">Montant E-XRP en wei:</label><br>
     <input type="number" id="EXRPmontantenwei" name="fxrpmontantenwei"><br>
