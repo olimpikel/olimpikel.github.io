@@ -126,6 +126,11 @@
        <h2>Utilisateurs pouvant etre liquide <140 pourcent </h2>
     <button onclick="getUndercollateralizedUsers()">Récupérer utilisateurs <140 pourcent </button>
         <div id="result2"></div>
+        <hr>
+    <h2>Approuver le smart contract a utiliser un montant definis de WSGB</h2>
+ <label for="montantaapprouve">montantaapprouve:</label><br>
+    <input type="number" id="montantaapprouve" name="montantaapprouve"><br>
+    <button onclick="approve(document.getElementById('montantaapprouve').value)">montantaapprouve</button>
 
 </body>
 </html>
