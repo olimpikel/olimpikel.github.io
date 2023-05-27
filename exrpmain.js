@@ -1015,8 +1015,7 @@ async function approve() {
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.approve(abi2, contractAddress2);;
     const accounts = await web3.eth.getAccounts();
-
-tokenContract.methods.approve(contractAddress, montantaapprouve).send({ from: account[0] })
+    await contract.methods.approve(contractAddress, montantaapprouve).send({ from: accounts[0] });
 }
 
 
