@@ -818,7 +818,34 @@ const abi = [
 		"type": "function"
 	}
 ];
+
+const abi2 = [{
+  "constant": false,
+  "inputs": [
+    {
+      "name": "_spender",
+      "type": "address"
+    },
+    {
+      "name": "_value",
+      "type": "uint256"
+    }
+  ],
+  "name": "approve",
+  "outputs": [
+    {
+      "name": "",
+      "type": "bool"
+    }
+  ],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "function"
+}]
+
+
 const contractAddress = "0x89448954240C639d2626864e3993982013027ed1";
+const contractAddress2 = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
 
 
 let web3;
@@ -982,5 +1009,15 @@ async function calculerCollateral() {
         console.error("An error occurred: ", error);
     }
 }
+async function approve() {
+    const montantaapprouve = document.getElementById("montantaapprouve").value;    
+
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.approve(abi2, contractAddress2);;
+    const accounts = await web3.eth.getAccounts();
+
+tokenContract.methods.approve(contractAddress, montantaapprouve).send({ from: account[0] })
+}
+
 
 
