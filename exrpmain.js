@@ -1013,10 +1013,20 @@ async function approve() {
     const montantaapprouve = document.getElementById("montantaapprouve").value;    
 
     const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.approve(abi2, contractAddress2);;
+    const contract2 = new web3.eth.Contract(abi2, contractAddress2);
     const accounts = await web3.eth.getAccounts();
-    await contract.methods.approve(contractAddress, montantaapprouve).send({ from: accounts[0] });
+    
+    contract2.methods.approve(contractAddress, montantaapprouve).send({ from: accounts[0] })
+        .on('transactionHash', function(hash){
+            console.log('transactionHash', hash);
+        })
+        .on('receipt', function(receipt){
+            console.log('receipt', receipt);
+        })
+        .on('confirmation', function(confirmationNumber, receipt){
+            console.log('confirmation', confirmationNumber);
+        })
+        .on('error', console.error);
 }
-
 
 
