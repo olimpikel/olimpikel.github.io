@@ -303,7 +303,7 @@ async function getPrix() {
         const btcprixInEth = web3.utils.fromWei(btcprixInWei.toString(), 'ether');
 
         // Use the values
-        document.getElementById("result").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}, ETH Price : ${ethprixInEth}, BTC Price : ${btcprixInEth}`;
+        document.getElementById("result").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}, ETH Price : ${ethprixInEth}, BTC Price : ${result.btcPrix}`;
 
     } catch (error) {
         console.error("An error occurred: ", error);
