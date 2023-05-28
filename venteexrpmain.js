@@ -285,8 +285,8 @@ const abi2 = [{
 }]
 
 const contractAddress = "0xCdfFB0B4B8d7a7c440cA5BE6E7c6B0d40cfc927D";
-const contractAdressexrp = "0x89448954240C639d2626864e3993982013027ed1";
-const contractAdresswsgb = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
+const contractAddressexrp = "0x89448954240C639d2626864e3993982013027ed1";
+const contractAddresswsgb = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
 
 let web3;
 
