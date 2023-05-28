@@ -1,5 +1,114 @@
 const abi = [
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_rewardOwner",
+				"type": "address"
+			},
+			{
+				"internalType": "address payable",
+				"name": "_recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_rewardEpoch",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_wrap",
+				"type": "bool"
+			}
+		],
+		"name": "claim",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "_rewardAmount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_bips",
+				"type": "uint256"
+			}
+		],
+		"name": "deleguer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "depositWSGB",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "recoverERC20",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "montantEXRPenwei",
+				"type": "uint256"
+			}
+		],
+		"name": "swap",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "montantWSGBenwei",
+				"type": "uint256"
+			}
+		],
+		"name": "swap1",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -32,10 +141,10 @@ const abi = [
 	},
 	{
 		"inputs": [],
-		"name": "WSGB",
+		"name": "ftsoregistryproxy",
 		"outputs": [
 			{
-				"internalType": "contract IERC20",
+				"internalType": "contract IFTSORegistryProxy",
 				"name": "",
 				"type": "address"
 			}
@@ -44,24 +153,11 @@ const abi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "depositWSGB",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
-		"name": "ftsoregistryproxy",
+		"name": "FtsoRewardManager",
 		"outputs": [
 			{
-				"internalType": "contract IFTSORegistryProxy",
+				"internalType": "contract IFtsoRewardManager",
 				"name": "",
 				"type": "address"
 			}
@@ -96,21 +192,16 @@ const abi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "tokenAddress",
-				"type": "address"
-			},
+		"inputs": [],
+		"name": "ratioprix1",
+		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "tokenAmount",
+				"name": "ratioprixwsgbxrp",
 				"type": "uint256"
 			}
 		],
-		"name": "recoverERC20",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -126,27 +217,50 @@ const abi = [
 				"internalType": "uint256",
 				"name": "wSGBPrix",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "ethPrix",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "btcPrix",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "VPToken",
+		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "montantEXRPenwei",
-				"type": "uint256"
+				"internalType": "contract IVPToken",
+				"name": "",
+				"type": "address"
 			}
 		],
-		"name": "swap",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "WSGB",
+		"outputs": [
+			{
+				"internalType": "contract IERC20",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]
 
-const contractAddress = "0xd00947e90D17BA84217076d6561079C416463BBe";
+const contractAddress = "0xCdfFB0B4B8d7a7c440cA5BE6E7c6B0d40cfc927D";
 
 let web3;
 
@@ -179,13 +293,17 @@ async function getPrix() {
         // Multiply by 10*13 to convert to Wei
         const xrpprixInWei = BigInt(result.xrpPrix * Math.pow(10, 13));
         const wsgbprixInWei = BigInt(result.wSGBPrix * Math.pow(10, 13));
+	       const ethprixInWei = BigInt(result.ethPrix * Math.pow(10, 13));
+        const btcprixInWei = BigInt(result.btcPrix * Math.pow(10, 13));
 
         // Convert to ETH
         const xrpprixInEth = web3.utils.fromWei(xrpprixInWei.toString(), 'ether');
         const wsgbprixInEth = web3.utils.fromWei(wsgbprixInWei.toString(), 'ether');
+	            const ethprixInEth = web3.utils.fromWei(ethprixInWei.toString(), 'ether');
+        const btcprixInEth = web3.utils.fromWei(btcprixInWei.toString(), 'ether');
 
         // Use the values
-        document.getElementById("result").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}`;
+        document.getElementById("result").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}, ETH Price : ${ethprixInEth}, BTC Price : ${btcprixInEth}`;
 
     } catch (error) {
         console.error("An error occurred: ", error);
