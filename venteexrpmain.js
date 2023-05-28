@@ -291,10 +291,10 @@ async function getPrix() {
         const result = await contract.methods.recupprix().call({ from: accounts[0] });
 
         // Multiply by 10*13 to convert to Wei
-        const xrpprixInWei = BigInt(result.xrpPrix * Math.pow(10, 13));
-        const wsgbprixInWei = BigInt(result.wSGBPrix * Math.pow(10, 13));
-	       const ethprixInWei = BigInt(result.ethPrix * Math.pow(10, 13));
-        const btcprixInWei = BigInt(result.btcPrix * Math.pow(10, 13));
+ const xrpprixInWei = BigInt(result.xrpPrix + '0000000000000');
+const wsgbprixInWei = BigInt(result.wSGBPrix + '0000000000000');
+const ethprixInWei = BigInt(result.ethPrix + '0000000000000');
+const btcprixInWei = BigInt(result.btcPrix + '0000000000000');
 
         // Convert to ETH
         const xrpprixInEth = web3.utils.fromWei(xrpprixInWei.toString(), 'ether');
