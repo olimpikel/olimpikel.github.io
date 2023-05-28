@@ -260,7 +260,33 @@ const abi = [
 	}
 ]
 
+const abi2 = [{
+  "constant": false,
+  "inputs": [
+    {
+      "name": "_spender",
+      "type": "address"
+    },
+    {
+      "name": "_value",
+      "type": "uint256"
+    }
+  ],
+  "name": "approve",
+  "outputs": [
+    {
+      "name": "",
+      "type": "bool"
+    }
+  ],
+  "payable": false,
+  "stateMutability": "nonpayable",
+  "type": "function"
+}]
+
 const contractAddress = "0xCdfFB0B4B8d7a7c440cA5BE6E7c6B0d40cfc927D";
+const contractAdressexrp = "0x89448954240C639d2626864e3993982013027ed1";
+const contractAdresswsgb = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
 
 let web3;
 
@@ -345,6 +371,25 @@ async function swap() {
 
     await contract.methods.swap(montantEXRPenwei).send({ from: accounts[0] });
 }
+async function approve() {
+    const montantaapprouve = document.getElementById("montantEXRPenwei").value;    
+
+    const web3 = new Web3(window.ethereum);
+    const contract2 = new web3.eth.Contract(abi2, contractAddressexrp);
+    const accounts = await web3.eth.getAccounts();
+    
+    contract2.methods.approve(contractAddress, montantaapprouve).send({ from: accounts[0] })
+        .on('transactionHash', function(hash){
+            console.log('transactionHash', hash);
+        })
+        .on('receipt', function(receipt){
+            console.log('receipt', receipt);
+        })
+        .on('confirmation', function(confirmationNumber, receipt){
+            console.log('confirmation', confirmationNumber);
+        })
+        .on('error', console.error);
+}
 async function swap1() {
     const montantWSGBenwei = document.getElementById("montantWSGBenwei").value;    
 
@@ -353,4 +398,23 @@ async function swap1() {
     const accounts = await web3.eth.getAccounts();
 
     await contract.methods.swap1(montantWSGBenwei).send({ from: accounts[0] });
+}
+async function approve1() {
+    const montantaapprouve = document.getElementById("montantWSGBenwei").value;    
+
+    const web3 = new Web3(window.ethereum);
+    const contract2 = new web3.eth.Contract(abi2, contractAddresswsgb);
+    const accounts = await web3.eth.getAccounts();
+    
+    contract2.methods.approve(contractAddress, montantaapprouve).send({ from: accounts[0] })
+        .on('transactionHash', function(hash){
+            console.log('transactionHash', hash);
+        })
+        .on('receipt', function(receipt){
+            console.log('receipt', receipt);
+        })
+        .on('confirmation', function(confirmationNumber, receipt){
+            console.log('confirmation', confirmationNumber);
+        })
+        .on('error', console.error);
 }
