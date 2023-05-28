@@ -309,6 +309,33 @@ const btcprixInWei = BigInt(result.btcPrix + '0000000000000');
         console.error("An error occurred: ", error);
     }
 }
+function convertEtherToWei() {
+    var ether = document.getElementById("ether").value;
+
+    // Vérifier si la valeur est numérique
+    if (isNaN(ether)) {
+        alert("Veuillez entrer une valeur numérique");
+        document.getElementById("ether").value = '';
+        document.getElementById("wei").value = '';
+    } else {
+        var parts = ether.split('.');
+        var whole = parts[0];
+        var decimal = parts[1] || '';
+
+        if (decimal.length > 18) {
+            alert("Veuillez entrer une valeur avec 18 décimales maximum");
+            document.getElementById("ether").value = '';
+            document.getElementById("wei").value = '';
+        } else {
+            // Ajouter les zéros nécessaires
+            var zerosToAdd = 18 - decimal.length;
+            var wei = BigInt(whole + decimal + '0'.repeat(zerosToAdd));
+            document.getElementById("wei").value = wei.toString(); // Convertir le BigInt en chaîne avant de l'afficher
+        }
+    }
+}
+
+
 async function swap() {
     const montantEXRPenwei = document.getElementById("montantEXRPenwei").value;    
 
