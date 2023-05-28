@@ -76,14 +76,16 @@
     <input id="wei" type="text" placeholder="Résultat en Wei" readonly>
     <hr>    
     <h2>vendre son E-XRP 0 frais</h2>
-    <label for="montantEXRPenwei">Montant E-XRP:</label><br>
+    <label for="montantEXRPenwei">Montant E-XRP (en wei):</label><br>
     <input type="number" id="montantEXRPenwei" name="montantEXRPenwei"><br>
     <button onclick="swap(document.getElementById('montantEXRPenwei').value)">swap</button>
+    <button onclick="approve(document.getElementById('montantEXRPenwei').value)">approve</button>
     <hr>
           <h2>acheter du E-XRP 0.1 pourcent de frais</h2>
-    <label for="montantWSGBenwei">Montant E-XRP:</label><br>
+    <label for="montantWSGBenwei">Montant WSGB (en wei):</label><br>
     <input type="number" id="montantWSGBenwei" name="montantWSGBenwei"><br>
     <button onclick="swap1(document.getElementById('montantWSGBenwei').value)">swap</button>
+         <button onclick="approve1(document.getElementById('montantWSGBenwei').value)">approve</button>
     <hr>
 
 </body>
