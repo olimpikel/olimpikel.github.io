@@ -299,11 +299,11 @@ async function getPrix() {
         // Convert to ETH
         const xrpprixInEth = web3.utils.fromWei(xrpprixInWei.toString(), 'ether');
         const wsgbprixInEth = web3.utils.fromWei(wsgbprixInWei.toString(), 'ether');
-	            const ethprixInEth = web3.utils.fromWei(ethprixInWei.toString(), 'ether');
+	const ethprixInEth = web3.utils.fromWei(ethprixInWei.toString(), 'ether');
         const btcprixInEth = web3.utils.fromWei(btcprixInWei.toString(), 'ether');
 
         // Use the values
-        document.getElementById("result").innerHTML = `XRP Price : ${xrpprixInEth}, WSBG Price : ${wsgbprixInEth}, ETH Price : ${ethprixInEth}, BTC Price : ${result.btcPrix}`;
+        document.getElementById("result").innerHTML = `XRP Price USD : ${xrpprixInEth}, WSBG Price USD : ${wsgbprixInEth}, ETH Price USD : ${ethprixInEth}, BTC Price USD : ${btcprixInEth}`;
 
     } catch (error) {
         console.error("An error occurred: ", error);
