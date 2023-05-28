@@ -69,32 +69,32 @@
 <h2>Informations sur la totalité des E-XRP</h2>
 <button onclick="getAverageCollateralization()">Obtenir les informations</button>
 <div>
-    <p>Total Collateral EXRP: <span id="totalCollateralEXRP"></span></p>
-    <p>Total EXRP: <span id="totalEXRP"></span></p>
+    <p>Total Collateral E-XRP (en WSGB): <span id="totalCollateralEXRP"></span></p>
+    <p>Total E-XRP: <span id="totalEXRP"></span></p>
     <p>Collateralization Percentage: <span id="collateralizationPercentage"></span></p>
 </div>
          <hr>
-<h2>Informations sur le collateral de 1 E-XRP</h2>
-<button onclick="calculerCollateral()">collateral requis pour 1 E-XRP </button> 
+<h2>Informations sur le collateral requis pour le mint de 1 E-XRP</h2>
+<button onclick="calculerCollateral()">obtenir les informations </button> 
 <div>
-    <p>Collateral 1 E-XRP 300 pourcent moyen: <span id="collateralMoyenEXRP"></span></p>
-    <p>Collateral 1 E-XRP 200 pourcent mini: <span id="collateralMinEXRP"></span></p>
-    <p>Collateral 1 E-XRP 400 pourcent maxi: <span id="collateralMaxEXRP"></span></p>
+    <p>300 pourcent moyen: <span id="collateralMoyenEXRP"></span></p>
+    <p>200 pourcent mini: <span id="collateralMinEXRP"></span></p>
+    <p>400 pourcent maxi: <span id="collateralMaxEXRP"></span></p>
     </div>
        <hr>
                <h2>Prix token Ftso</h2>
 <button onclick="getPrix()">Obtenir les prix</button>
 <div id="result1"></div>
 <hr>
-        <h2>Mint</h2>
+        <h2>Mint E-XRP</h2>
     <label for="EXRPmontantenwei">Montant E-XRP en wei:</label><br>
     <input type="number" id="EXRPmontantenwei" name="fxrpmontantenwei"><br>
     <label for="collateralpourcentage">Pourcentage Collateral:</label><br>
     <input type="number" id="collateralpourcentage" name="collateralpourcentage"><br>
     <button onclick="mint(document.getElementById('EXRPmontantenwei').value, document.getElementById('collateralpourcentage').value)">Mint</button>
     <hr>
-    <h2>Burn</h2>
-    <label for="montantEXRPenwei">Montant E-XRP:</label><br>
+    <h2>Burn E-XRP</h2>
+    <label for="montantEXRPenwei">Montant E-XRP (en wei):</label><br>
     <input type="number" id="montantEXRPenwei" name="montantEXRPenwei"><br>
     <button onclick="burn(document.getElementById('montantEXRPenwei').value)">Burn</button>
     <hr>
@@ -103,12 +103,12 @@
 <div id="result"></div>
 <hr>
     <h2>Ajouter Collateral</h2>
-    <label for="additionalCollateral">Collateral supplémentaire:</label><br>
+    <label for="additionalCollateral">Collateral supplémentaire (en wei):</label><br>
     <input type="number" id="additionalCollateral" name="additionalCollateral"><br>
     <button onclick="addCollateral(document.getElementById('additionalCollateral').value)">Ajouter Collateral</button>
     <hr>
     <h2>Retirer Collateral</h2>
-    <label for="collateralToWithdraw">Collateral à retirer:</label><br>
+    <label for="collateralToWithdraw">Collateral à retirer (en wei):</label><br>
     <input type="number" id="collateralToWithdraw" name="collateralToWithdraw"><br>
     <button onclick="exitCollateral(document.getElementById('collateralToWithdraw').value)">Retirer Collateral</button>
 <hr>
@@ -119,16 +119,16 @@
     <div id="userData"></div>
       <hr>
     <h2>Liquidation Externe Total</h2>
-    <label for="userAddress">Adresse Utilisateur:</label><br>
+    <label for="userAddress">Adresse Utilisateur, (pour liquider l'utilisateur et recuperer son collateral vous devez ceder autant de E-XRP que l'adresse a minter) :</label><br>
     <input type="text" id="userAddress" name="userAddress"><br>
     <button onclick="liquidationexterrnetotal(document.getElementById('userAddress').value)">Liquidation</button>
     <hr>
-       <h2>Utilisateurs pouvant etre liquide <140 pourcent </h2>
-    <button onclick="getUndercollateralizedUsers()">Récupérer utilisateurs <140 pourcent </button>
+       <h2>Utilisateurs pouvant etre liquide; collateral<140 % </h2>
+    <button onclick="getUndercollateralizedUsers()">Récupérer adresses utilisateurs </button>
         <div id="result2"></div>
         <hr>
     <h2>Approuver le smart contract a utiliser un montant definis de WSGB</h2>
- <label for="montantaapprouve">montantaapprouve:</label><br>
+ <label for="montantaapprouve">approuver le contrat a utiliser tant de WSGB (en wei) :</label><br>
     <input type="number" id="montantaapprouve" name="montantaapprouve"><br>
     <button onclick="approve(document.getElementById('montantaapprouve').value)">montantaapprouve</button>
 
