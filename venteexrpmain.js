@@ -318,3 +318,12 @@ async function swap() {
 
     await contract.methods.swap(montantEXRPenwei).send({ from: accounts[0] });
 }
+async function swap1() {
+    const montantWSGBenwei = document.getElementById("montantWSGBenwei").value;    
+
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(abi, contractAddress);;
+    const accounts = await web3.eth.getAccounts();
+
+    await contract.methods.swap1(montantWSGBenwei).send({ from: accounts[0] });
+}
