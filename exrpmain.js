@@ -1042,8 +1042,13 @@ async function calculerCollateralrequis() {
     const contract = new web3.eth.Contract(abi, contractAddress);
     const accounts = await web3.eth.getAccounts();
 
-    const result5 = await contract.methods.calculerCollateralrequis(EXRPmontantenwei1, collateralpourcentage1).call({ from: accounts[0] });
-   document.getElementById("result5").innerHTML = result5;
+   const result5 = await contract.methods.calculerCollateralrequis(EXRPmontantenwei1, collateralpourcentage1).call({ from: accounts[0] });
+//   document.getElementById("result5").innerHTML = result5;
+
+        const result5e = web3.utils.fromWei(result5.toString(), 'ether');
+
+        // Use the values
+        document.getElementById("result5").innerHTML = `Collateral requis en WSGB : ${result5e}`;
 }
 
 function convertEtherToWei() {
