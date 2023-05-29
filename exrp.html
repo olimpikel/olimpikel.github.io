@@ -82,10 +82,24 @@
     <p>400 pourcent maxi: <span id="collateralMaxEXRP"></span></p>
     </div>
        <hr>
+          
+        <h2>Calculer Collateral requis</h2>
+    <label for="EXRPmontantenwei1">Montant E-XRP en wei:</label><br>
+    <input type="number" id="EXRPmontantenwei1" name="fxrpmontantenwei1"><br>
+    <label for="collateralpourcentage">Pourcentage Collateral:</label><br>
+    <input type="number" id="collateralpourcentage1" name="collateralpourcentage1"><br>
+    <button onclick="calculerCollateralrequis(document.getElementById('EXRPmontantenwei1').value, document.getElementById('collateralpourcentage1').value)">calculerCollateralrequis</button>
+        <div id="result5"></div>
+              <hr>   
+        
                <h2>Prix token Ftso</h2>
 <button onclick="getPrix()">Obtenir les prix</button>
 <div id="result1"></div>
 <hr>
+       <h2>Convertisseur Ether vers Wei</h1>
+    <input id="ether" type="text" placeholder="Entrez la valeur en Ether" oninput="convertEtherToWei()">
+    <input id="wei" type="text" placeholder="Résultat en Wei" readonly>
+    <hr>     
         <h2>Mint E-XRP</h2>
     <label for="EXRPmontantenwei">Montant E-XRP en wei:</label><br>
     <input type="number" id="EXRPmontantenwei" name="fxrpmontantenwei"><br>
