@@ -190,24 +190,6 @@ const abi = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "approveToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -276,6 +258,30 @@ const abi = [
 			{
 				"internalType": "uint256",
 				"name": "collateralMaxEXRP",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "EXRPmontantenwei",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "collateralpourcentage",
+				"type": "uint256"
+			}
+		],
+		"name": "calculerCollateralrequis",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "collateralrequisEXRP",
 				"type": "uint256"
 			}
 		],
@@ -844,8 +850,8 @@ const abi2 = [{
 }]
 
 
-const contractAddress = "0x89448954240C639d2626864e3993982013027ed1";
-const contractAddress2 = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
+const contractAddress = "0x9DCda0A1FE4899A58c2692871F48917D3A9Dcfe9";
+const contractAddresswdsgb = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
 
 
 let web3;
@@ -1013,7 +1019,7 @@ async function approve() {
     const montantaapprouve = document.getElementById("montantaapprouve").value;    
 
     const web3 = new Web3(window.ethereum);
-    const contract2 = new web3.eth.Contract(abi2, contractAddress2);
+    const contract2 = new web3.eth.Contract(abi2, contractAddresswsgb);
     const accounts = await web3.eth.getAccounts();
     
     contract2.methods.approve(contractAddress, montantaapprouve).send({ from: accounts[0] })
