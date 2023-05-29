@@ -1043,7 +1043,7 @@ async function calculerCollateralrequis() {
     const accounts = await web3.eth.getAccounts();
 
     const result5 = await contract.methods.calculerCollateralrequis(EXRPmontantenwei1, collateralpourcentage1).call({ from: accounts[0] });
-    console.log(result5); // afficher le résultat dans la console
+   document.getElementById("result5").innerHTML = result5;
 }
 
 function convertEtherToWei() {
