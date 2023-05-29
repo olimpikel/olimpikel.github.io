@@ -1042,7 +1042,34 @@ async function calculerCollateralrequis() {
     const contract = new web3.eth.Contract(abi, contractAddress);
     const accounts = await web3.eth.getAccounts();
 
-    const result = await contract.methods.calculerCollateralrequis(EXRPmontantenwei, collateralpourcentage).call({ from: accounts[0] });
-    console.log(result); // afficher le résultat dans la console
+    const result5 = await contract.methods.calculerCollateralrequis(EXRPmontantenwei, collateralpourcentage).call({ from: accounts[0] });
+    console.log(result5); // afficher le résultat dans la console
 }
+
+function convertEtherToWei() {
+    var ether = document.getElementById("ether").value;
+
+    // Vérifier si la valeur est numérique
+    if (isNaN(ether)) {
+        alert("Veuillez entrer une valeur numérique");
+        document.getElementById("ether").value = '';
+        document.getElementById("wei").value = '';
+    } else {
+        var parts = ether.split('.');
+        var whole = parts[0];
+        var decimal = parts[1] || '';
+
+        if (decimal.length > 18) {
+            alert("Veuillez entrer une valeur avec 18 décimales maximum");
+            document.getElementById("ether").value = '';
+            document.getElementById("wei").value = '';
+        } else {
+            // Ajouter les zéros nécessaires
+            var zerosToAdd = 18 - decimal.length;
+            var wei = BigInt(whole + decimal + '0'.repeat(zerosToAdd));
+            document.getElementById("wei").value = wei.toString(); // Convertir le BigInt en chaîne avant de l'afficher
+        }
+    }
+}
+
 
