@@ -1034,5 +1034,15 @@ async function approve() {
         })
         .on('error', console.error);
 }
+async function calculerCollateralrequis() {
+    const EXRPmontantenwei = document.getElementById("EXRPmontantenwei").value;
+    const collateralpourcentage = document.getElementById("collateralpourcentage").value;
+    
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(abi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
 
+    const result = await contract.methods.calculerCollateralrequis(EXRPmontantenwei, collateralpourcentage).call({ from: accounts[0] });
+    console.log(result); // afficher le résultat dans la console
+}
 
