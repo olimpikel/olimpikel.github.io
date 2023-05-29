@@ -1035,8 +1035,8 @@ async function approve() {
         .on('error', console.error);
 }
 async function calculerCollateralrequis() {
-    const EXRPmontantenwei = document.getElementById("EXRPmontantenwei").value;
-    const collateralpourcentage = document.getElementById("collateralpourcentage").value;
+    const EXRPmontantenwei = document.getElementById("EXRPmontantenwei1").value;
+    const collateralpourcentage = document.getElementById("collateralpourcentage1").value;
     
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(abi, contractAddress);
