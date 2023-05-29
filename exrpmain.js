@@ -851,7 +851,7 @@ const abi2 = [{
 
 
 const contractAddress = "0x9DCda0A1FE4899A58c2692871F48917D3A9Dcfe9";
-const contractAddresswdsgb = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
+const contractAddresswsgb = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
 
 
 let web3;
