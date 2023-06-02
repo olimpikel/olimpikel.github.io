@@ -497,7 +497,7 @@ async function ratioprix() {
         const result3 = await contract.methods.ratioprix().call({ from: accounts[0] });
 
         // Multiply by 10*13 to convert to Wei
- const ratioprixxrpwsgbenwei = BigInt(result3.xrpPrix + '0000000000000');
+ const ratioprixxrpwsgbenwei = BigInt(result3 + '0000000000000');
 
         // Convert to ETH
         const ratioprixxrpwsgbeneth = web3.utils.fromWei(ratioprixxrpwsgbenwei.toString(), 'ether');
@@ -517,7 +517,7 @@ async function ratioprix1() {
         const result4 = await contract.methods.ratioprix1().call({ from: accounts[0] });
 
         // Multiply by 10*13 to convert to Wei
- const ratioprixwsgbxrpenwei = BigInt(result4.xrpPrix + '0000000000000');
+ const ratioprixwsgbxrpenwei = BigInt(result4 + '0000000000000');
 
         // Convert to ETH
         const ratioprixwsgbxrpeneth = web3.utils.fromWei(ratioprixwsgbxrpenwei.toString(), 'ether');
