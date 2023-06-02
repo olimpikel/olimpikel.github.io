@@ -78,8 +78,8 @@
     <h2>vendre son E-XRP 0 frais</h2>
     <label for="montantEXRPenwei">Montant E-XRP (en wei):</label><br>
     <input type="number" id="montantEXRPenwei" name="montantEXRPenwei"><br>
-        <button onclick="getEXRPBalance()">EXRP disponible</button>
-<div id="result2"></div>
+       <button onclick="getWSGBBalance()">WSGB disponible</button>
+<div id="result1"></div>
         <button onclick="ratioprix()">EXRP/WSGB</button>
 <div id="result3"></div>
     <button onclick="swap(document.getElementById('montantEXRPenwei').value)">swap</button>
@@ -88,8 +88,9 @@
           <h2>acheter du E-XRP 0.1 pourcent de frais</h2>
     <label for="montantWSGBenwei">Montant WSGB (en wei):</label><br>
     <input type="number" id="montantWSGBenwei" name="montantWSGBenwei"><br>
-             <button onclick="getWSGBBalance()">WSGB disponible</button>
-<div id="result1"></div>
+           <button onclick="getEXRPBalance()">EXRP disponible</button>
+<div id="result2"></div>
+            
         <button onclick="ratioprix1()">WSGB/EXRP</button>
 <div id="result4"></div>
     <button onclick="swap1(document.getElementById('montantWSGBenwei').value)">swap</button>
