@@ -59,6 +59,19 @@ const abi = [
 				"type": "uint256"
 			}
 		],
+		"name": "depositEXRP",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
 		"name": "depositWSGB",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -160,6 +173,32 @@ const abi = [
 				"internalType": "contract IFtsoRewardManager",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getEXRPBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getWSGBBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -284,8 +323,8 @@ const abi2 = [{
   "type": "function"
 }]
 
-const contractAddress = "0xCdfFB0B4B8d7a7c440cA5BE6E7c6B0d40cfc927D";
-const contractAddressexrp = "0x89448954240C639d2626864e3993982013027ed1";
+const contractAddress = "0x817FC672e2ccF9E83dFADE217B907f4f9568Ac89";
+const contractAddressexrp = "0x9DCda0A1FE4899A58c2692871F48917D3A9Dcfe9";
 const contractAddresswsgb = "0x02f0826ef6aD107Cfc861152B32B52fD11BaB9ED";
 
 let web3;
@@ -417,4 +456,76 @@ async function approve1() {
             console.log('confirmation', confirmationNumber);
         })
         .on('error', console.error);
+}
+async function getWSGBBalance() {
+    try {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(abi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const result1 = await contract.methods.getWSGBBalance().call({ from: accounts[0] });
+
+        const wsgbsolde = web3.utils.fromWei(result1.toString(), 'ether');
+
+        // Use the values
+        document.getElementById("result1").innerHTML = `Solde WSGB de la pool : ${wsgbsolde}`;
+
+    } catch (error) {
+        console.error("An error occurred: ", error);
+    }
+}
+async function getEXRPBalance() {
+    try {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(abi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const result2 = await contract.methods.getEXRPBalance().call({ from: accounts[0] });
+
+        const EXRPsolde = web3.utils.fromWei(result2.toString(), 'ether');
+
+        // Use the values
+        document.getElementById("result2").innerHTML = `Solde EXRP de la pool : ${EXRPsolde}`;
+
+    } catch (error) {
+        console.error("An error occurred: ", error);
+    }
+}
+async function ratioprix() {
+    try {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(abi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const result3 = await contract.methods.ratioprix().call({ from: accounts[0] });
+
+        // Multiply by 10*13 to convert to Wei
+ const ratioprixxrpwsgbenwei = BigInt(result3.xrpPrix + '0000000000000');
+
+        // Convert to ETH
+        const ratioprixxrpwsgbeneth = web3.utils.fromWei(ratioprixxrpwsgbenwei.toString(), 'ether');
+
+        // Use the values
+        document.getElementById("result3").innerHTML = `1 EXRP donne ${ratioprixxrpwsgbeneth} WSGB`;
+
+    } catch (error) {
+        console.error("An error occurred: ", error);
+    }
+}
+async function ratioprix1() {
+    try {
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(abi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const result4 = await contract.methods.ratioprix1().call({ from: accounts[0] });
+
+        // Multiply by 10*13 to convert to Wei
+ const ratioprixwsgbxrpenwei = BigInt(result4.xrpPrix + '0000000000000');
+
+        // Convert to ETH
+        const ratioprixwsgbxrpeneth = web3.utils.fromWei(ratioprixwsgbxrpenwei.toString(), 'ether');
+
+        // Use the values
+        document.getElementById("result3").innerHTML = `1 WSGB donne ${ratioprixwsgbxrpeneth} EXRP`;
+
+    } catch (error) {
+        console.error("An error occurred: ", error);
+    }
 }
