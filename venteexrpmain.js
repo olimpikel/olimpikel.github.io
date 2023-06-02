@@ -523,7 +523,7 @@ async function ratioprix1() {
         const ratioprixwsgbxrpeneth = web3.utils.fromWei(ratioprixwsgbxrpenwei.toString(), 'ether');
 
         // Use the values
-        document.getElementById("result3").innerHTML = `1 WSGB donne ${ratioprixwsgbxrpeneth} EXRP`;
+        document.getElementById("result4").innerHTML = `1 WSGB donne ${ratioprixwsgbxrpeneth} EXRP`;
 
     } catch (error) {
         console.error("An error occurred: ", error);
