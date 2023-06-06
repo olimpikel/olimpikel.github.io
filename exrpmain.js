@@ -1076,5 +1076,13 @@ function convertEtherToWei() {
         }
     }
 }
+async function liquidationexterrnetotal() {
+    const addressuser = document.getElementById("addressuser").value;    
 
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(abi, contractAddress);;
+    const accounts = await web3.eth.getAccounts();
+
+    await contract.methods.liquidationexterrnetotal(addressuser).send({ from: accounts[0] });
+}
 
