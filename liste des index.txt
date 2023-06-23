@@ -1,0 +1,12 @@
+Symbol: XRP - INDEX: 0
+Symbol: LTC - INDEX: 1
+Symbol: XLM - INDEX: 2
+Symbol: DOGE - INDEX: 3
+Symbol: ADA - INDEX: 4
+Symbol: ALGO - INDEX: 5
+Symbol: BCH - INDEX: 6
+Symbol: DGB - INDEX: 7
+Symbol: BTC - INDEX: 8
+Symbol: ETH - INDEX: 9
+Symbol: FIL - INDEX: 10
+Symbol: SGB - INDEX: 11
