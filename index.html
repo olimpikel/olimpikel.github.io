@@ -4,25 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion Massa Wallet</title>
-    <script>
-        async function connectWallet() {
-            if (window.massa) {
-                try {
-                    const accounts = await window.massa.request({ method: "massa_requestAccounts" });
-                    document.getElementById("status").innerText = "Connecté : " + accounts[0];
-                } catch (error) {
-                    console.error("Erreur de connexion :", error);
-                    document.getElementById("status").innerText = "Échec de la connexion";
-                }
-            } else {
-                alert("Massa Station n'est pas détecté. Veuillez l'installer et l'activer.");
-            }
-        }
-    </script>
 </head>
 <body>
     <h1>Connexion au Portefeuille Massa</h1>
-    <button onclick="connectWallet()">Se connecter</button>
+    <button id="connectBtn">Se connecter</button>
     <p id="status">Non connecté</p>
+
+    <script>
+        async function connectWallet() {
+            const url = "ws://127.0.0.1:33035"; // Adresse WebSocket de Massa Station
+            const requestData = {
+                "jsonrpc": "2.0",
+                "method": "get_wallet_accounts",
+                "params": [],
+                "id": 0
+            };
+
+            try {
+                const ws = new WebSocket(url);
+
+                ws.onopen = () => {
+                    ws.send(JSON.stringify(requestData));
+                };
+
+                ws.onmessage = (event) => {
+                    const response = JSON.parse(event.data);
+                    if (response.result && response.result.length > 0) {
+                        document.getElementById("status").innerText = "Connecté : " + response.result[0];
+                    } else {
+                        document.getElementById("status").innerText = "Aucun compte trouvé.";
+                    }
+                    ws.close();
+                };
+
+                ws.onerror = (error) => {
+                    console.error("Erreur WebSocket :", error);
+                    document.getElementById("status").innerText = "Impossible de se connecter à Massa Station.";
+                };
+            } catch (error) {
+                console.error("Erreur de connexion :", error);
+                document.getElementById("status").innerText = "Connexion échouée.";
+            }
+        }
+
+        document.getElementById("connectBtn").addEventListener("click", connectWallet);
+    </script>
 </body>
 </html>
