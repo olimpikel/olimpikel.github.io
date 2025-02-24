@@ -3,49 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion Massa Wallets</title>
-</head>
-<body>
-    <h1>Connexion au Portefeuille Massas</h1>
-    <button id="connectBtn">Se connecter</button>
-    <p id="status">Non connecté</p>
+    <title>Connexion Massa Wallet</title>
+    <script type="module">
+        import { getWallets } from "https://esm.sh/@massalabs/wallet-provider";
 
-    <script>
         async function connectWallet() {
-            const massaAPI = "http://127.0.0.1:33035"; // API JSON-RPC publique
-            const requestData = {
-                "jsonrpc": "2.0",
-                "method": "get_wallet_accounts",
-                "params": [],
-                "id": 0
-            };
-
             try {
-                const response = await fetch(massaAPI, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(requestData)
+                // Récupérer les portefeuilles disponibles
+                const wallets = await getWallets();
+
+                if (wallets.length === 0) {
+                    document.getElementById("status").innerText = "Aucun portefeuille Massa trouvé.";
+                    return;
+                }
+
+                // Sélectionner le premier portefeuille disponible
+                const wallet = wallets[0];
+
+                // Tenter la connexion au portefeuille
+                const connected = await wallet.connect();
+                if (!connected) {
+                    document.getElementById("status").innerText = "Échec de la connexion au portefeuille.";
+                    return;
+                }
+
+                // Récupérer les comptes associés
+                const accounts = await wallet.accounts();
+                if (accounts.length > 0) {
+                    document.getElementById("status").innerText = "Connecté : " + accounts[0];
+                } else {
+                    document.getElementById("status").innerText = "Aucun compte trouvé dans le portefeuille.";
+                }
+
+                // Écouter les changements de compte
+                wallet.listenAccountChanges((address) => {
+                    document.getElementById("status").innerText = "Compte changé : " + address;
                 });
 
-                if (!response.ok) {
-                    throw new Error("Impossible de contacter l'API Massa.");
-                }
-
-                const data = await response.json();
-
-                if (data.result && data.result.length > 0) {
-                    document.getElementById("status").innerText = "Connecté : " + data.result[0];
-                } else {
-                    document.getElementById("status").innerText = "Aucun compte trouvé.";
-                }
-
+                // Obtenir des infos sur le réseau
+                const networkInfo = await wallet.networkInfos();
+                console.log("Infos réseau :", networkInfo);
+                
             } catch (error) {
-                console.error("Erreur de connexion :", error);
-                document.getElementById("status").innerText = "Connexion échouée.";
+                console.error("Erreur lors de la connexion au portefeuille :", error);
+                document.getElementById("status").innerText = "Erreur lors de la connexion.";
             }
         }
 
-        document.getElementById("connectBtn").addEventListener("click", connectWallet);
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("connectBtn").addEventListener("click", connectWallet);
+        });
     </script>
+</head>
+<body>
+    <h1>Connexion Massa Wallet</h1>
+    <button id="connectBtn">Se connecter</button>
+    <p id="status">Non connecté</p>
 </body>
 </html>
