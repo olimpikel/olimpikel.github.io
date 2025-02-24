@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion Massa Wallet</title>
     
-    <!-- Import de la bibliothèque massa-web3 -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@massalabs/massa-web3@latest/bundle.js"
-    ></script>
-    
+    <!-- Import stable de massa-web3 via jsDelivr -->
+    <script src="https://cdn.jsdelivr.net/npm/@massalabs/massa-web3"></script>
+
 </head>
 <body>
     <h1>Connexion au Portefeuille Massa</h1>
@@ -20,12 +17,12 @@
     <script>
         async function connectWallet() {
             try {
-                // Vérifier si l'objet Massa est bien chargé
+                // Vérifier que massa-web3 est bien chargé
                 if (!window.massa) {
                     throw new Error("Massa Web3 non disponible. Vérifiez que Massa Station est installé et actif.");
                 }
 
-                console.log("Massa Web3 : ", window.massa);
+                console.log("Massa Web3 chargé : ", window.massa);
 
                 // Récupérer le fournisseur de portefeuille
                 let provider = (await window.massa.providers(true, 10000))[0];
