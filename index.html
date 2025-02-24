@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Massa Wallet</title>
+    <script>
+        async function connectWallet() {
+            if (window.massa) {
+                try {
+                    const accounts = await window.massa.request({ method: "massa_requestAccounts" });
+                    document.getElementById("status").innerText = "Connecté : " + accounts[0];
+                } catch (error) {
+                    console.error("Erreur de connexion :", error);
+                    document.getElementById("status").innerText = "Échec de la connexion";
+                }
+            } else {
+                alert("Massa Station n'est pas détecté. Veuillez l'installer et l'activer.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Connexion au Portefeuille Massa</h1>
+    <button onclick="connectWallet()">Se connecter</button>
+    <p id="status">Non connecté</p>
+</body>
+</html>
