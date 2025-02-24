@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion Massa Wallet</title>
+    <title>Connexion Massa Wallets</title>
 </head>
 <body>
-    <h1>Connexion au Portefeuille Massa</h1>
+    <h1>Connexion au Portefeuille Massas</h1>
     <button id="connectBtn">Se connecter</button>
     <p id="status">Non connecté</p>
 
     <script>
         async function connectWallet() {
-            const massaAPI = "https://mainnet.massa.net/api/v2"; // URL de l'API officielle
-            
+            const massaAPI = "http://127.0.0.1:33035"; // API JSON-RPC publique
+            const requestData = {
+                "jsonrpc": "2.0",
+                "method": "get_wallet_accounts",
+                "params": [],
+                "id": 0
+            };
+
             try {
-                const response = await fetch(`${massaAPI}/wallet/accounts`, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                const response = await fetch(massaAPI, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(requestData)
                 });
 
                 if (!response.ok) {
-                    throw new Error("Impossible de récupérer les comptes.");
+                    throw new Error("Impossible de contacter l'API Massa.");
                 }
 
                 const data = await response.json();
 
-                if (data.length > 0) {
-                    document.getElementById("status").innerText = "Connecté : " + data[0];
+                if (data.result && data.result.length > 0) {
+                    document.getElementById("status").innerText = "Connecté : " + data.result[0];
                 } else {
                     document.getElementById("status").innerText = "Aucun compte trouvé.";
                 }
