@@ -12,35 +12,26 @@
 
     <script>
         async function connectWallet() {
-            const url = "ws://127.0.0.1:33035"; // Adresse WebSocket de Massa Station
-            const requestData = {
-                "jsonrpc": "2.0",
-                "method": "get_wallet_accounts",
-                "params": [],
-                "id": 0
-            };
-
+            const massaAPI = "https://mainnet.massa.net/api/v2"; // URL de l'API officielle
+            
             try {
-                const ws = new WebSocket(url);
+                const response = await fetch(`${massaAPI}/wallet/accounts`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
 
-                ws.onopen = () => {
-                    ws.send(JSON.stringify(requestData));
-                };
+                if (!response.ok) {
+                    throw new Error("Impossible de récupérer les comptes.");
+                }
 
-                ws.onmessage = (event) => {
-                    const response = JSON.parse(event.data);
-                    if (response.result && response.result.length > 0) {
-                        document.getElementById("status").innerText = "Connecté : " + response.result[0];
-                    } else {
-                        document.getElementById("status").innerText = "Aucun compte trouvé.";
-                    }
-                    ws.close();
-                };
+                const data = await response.json();
 
-                ws.onerror = (error) => {
-                    console.error("Erreur WebSocket :", error);
-                    document.getElementById("status").innerText = "Impossible de se connecter à Massa Station.";
-                };
+                if (data.length > 0) {
+                    document.getElementById("status").innerText = "Connecté : " + data[0];
+                } else {
+                    document.getElementById("status").innerText = "Aucun compte trouvé.";
+                }
+
             } catch (error) {
                 console.error("Erreur de connexion :", error);
                 document.getElementById("status").innerText = "Connexion échouée.";
