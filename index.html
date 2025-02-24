@@ -4,60 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion Massa Wallet</title>
-    <script type="module">
-        import { getWallets } from "https://esm.sh/@massalabs/wallet-provider";
+    
+    <!-- Import de la bibliothèque massa-web3 -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@massalabs/massa-web3@latest/bundle.js"
+    ></script>
+    
+</head>
+<body>
+    <h1>Connexion au Portefeuille Massa</h1>
+    <button id="connectBtn">Se connecter</button>
+    <p id="status">Non connecté</p>
 
+    <script>
         async function connectWallet() {
             try {
-                // Récupérer les portefeuilles disponibles
-                const wallets = await getWallets();
-
-                if (wallets.length === 0) {
-                    document.getElementById("status").innerText = "Aucun portefeuille Massa trouvé.";
-                    return;
+                // Vérifier si l'objet Massa est bien chargé
+                if (!window.massa) {
+                    throw new Error("Massa Web3 non disponible. Vérifiez que Massa Station est installé et actif.");
                 }
 
-                // Sélectionner le premier portefeuille disponible
-                const wallet = wallets[0];
+                console.log("Massa Web3 : ", window.massa);
 
-                // Tenter la connexion au portefeuille
-                const connected = await wallet.connect();
-                if (!connected) {
-                    document.getElementById("status").innerText = "Échec de la connexion au portefeuille.";
-                    return;
+                // Récupérer le fournisseur de portefeuille
+                let provider = (await window.massa.providers(true, 10000))[0];
+
+                if (!provider) {
+                    throw new Error("Aucun fournisseur de portefeuille trouvé.");
                 }
 
-                // Récupérer les comptes associés
-                const accounts = await wallet.accounts();
-                if (accounts.length > 0) {
-                    document.getElementById("status").innerText = "Connecté : " + accounts[0];
-                } else {
-                    document.getElementById("status").innerText = "Aucun compte trouvé dans le portefeuille.";
+                // Récupérer les comptes disponibles
+                let accounts = await provider.accounts();
+                if (accounts.length === 0) {
+                    throw new Error("Aucun compte trouvé.");
                 }
 
-                // Écouter les changements de compte
-                wallet.listenAccountChanges((address) => {
-                    document.getElementById("status").innerText = "Compte changé : " + address;
-                });
+                // Afficher l'adresse du compte connecté
+                document.getElementById("status").innerText = "Connecté : " + accounts[0];
+                console.log("Compte connecté :", accounts[0]);
 
-                // Obtenir des infos sur le réseau
-                const networkInfo = await wallet.networkInfos();
-                console.log("Infos réseau :", networkInfo);
-                
             } catch (error) {
-                console.error("Erreur lors de la connexion au portefeuille :", error);
-                document.getElementById("status").innerText = "Erreur lors de la connexion.";
+                console.error("Erreur de connexion :", error);
+                document.getElementById("status").innerText = "Erreur : " + error.message;
             }
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("connectBtn").addEventListener("click", connectWallet);
-        });
+        // Associer le bouton à la fonction de connexion
+        document.getElementById("connectBtn").addEventListener("click", connectWallet);
     </script>
-</head>
-<body>
-    <h1>Connexion Massa Wallet</h1>
-    <button id="connectBtn">Se connecter</button>
-    <p id="status">Non connecté</p>
 </body>
 </html>
