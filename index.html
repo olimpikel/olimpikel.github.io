@@ -3,40 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Massa Wallet Connection</title>
+    <title>Connexion Massa Wallets</title>
 </head>
 <body>
-    <h1>Connexion à Massa Wallet</h1>
+    <h2>Connexion à Massa Wallet</h2>
     <button id="connectWallet">Se connecter</button>
-    <p id="status">Statut : Non connecté</p>
-    <p id="walletAddress"></p>
+    <p id="status">Statut : Déconnecté</p>
+    <p id="walletAddress">Adresse : -</p>
 
-    <!-- Charger Massa Web3 -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@massalabs/massa-web3@latest/bundle.js"
-    ></script>
+    <!-- Chargement de la bibliothèque Massa Web3 -->
+    <script src="https://cdn.jsdelivr.net/npm/@massalabs/massa-web3@latest/bundle.js"></script>
 
     <script>
         async function connectMassaWallet() {
-            if (window.massa) { // Vérifie si Massa Wallet est installé
-                try {
-                    // Demander les comptes connectés
-                    const accounts = await window.massa.wallet.requestAccounts();
+            if (!window.massa || !window.massa.WalletClient) {
+                alert("Massa Wallet non détecté. Assurez-vous qu'il est installé et activé !");
+                return;
+            }
 
-                    if (accounts.length > 0) {
-                        document.getElementById("status").textContent = "Statut : Connecté";
-                        document.getElementById("walletAddress").textContent = "Adresse : " + accounts[0];
-                        console.log("Compte Massa :", accounts[0]);
-                    } else {
-                        document.getElementById("status").textContent = "Statut : Connexion refusée";
-                    }
-                } catch (error) {
-                    console.error("Erreur de connexion :", error);
-                    document.getElementById("status").textContent = "Statut : Erreur lors de la connexion";
+            try {
+                // Création d'un client wallet
+                const walletClient = new window.massa.WalletClient();
+
+                // Récupération des comptes disponibles
+                const accounts = await walletClient.getWalletAccounts();
+                
+                if (accounts.length > 0) {
+                    document.getElementById("status").textContent = "Statut : Connecté";
+                    document.getElementById("walletAddress").textContent = "Adresse : " + accounts[0];
+                    console.log("Adresse du wallet :", accounts[0]);
+                } else {
+                    document.getElementById("status").textContent = "Statut : Aucun compte trouvé.";
+                    console.log("Aucun compte Massa détecté.");
                 }
-            } else {
-                alert("Massa Wallet non détecté. Installez l'extension.");
+            } catch (error) {
+                console.error("Erreur de connexion :", error);
+                document.getElementById("status").textContent = "Statut : Erreur lors de la connexion.";
             }
         }
 
