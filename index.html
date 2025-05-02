@@ -1,38 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion Massa Wallet</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DApp Massa - Connexion Wallet</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h2>Connexion à Massa Walletss</h2>
-    <button id="connectWallet">Se connecter</button>
-    <p id="status">Statut : Déconnecté</p>
-    <p id="walletAddress">Adresse : -</p>
-
-    <!-- Chargement de la bibliothèque Massa Web3 -->
-    <script src="https://cdn.jsdelivr.net/npm/@massalabs/massa-web3@latest/bundle.js"></script>
-
-    <script>
-        async function connectMassaWallet() {
-            // Vérifie si l'extension Massa Wallet est installée
-            if (!window.massa || !window.massa.WalletClient) {
-                alert("Massa Wallet non détecté. Vérifiez qu'il est installé et activé !");
-                return;
-            }
-
-            try {
-                // Définition du provider Massa (mainnet)
-                const providerUrls = {
-                    public: "https://mainnet.massa.net/api/v2/",
-                    private: "https://mainnet.massa.net/api/v2/"
-                };
-
-                // Création du WalletClient avec le provider
-                const walletClient = new window.massa.WalletClient({ providerUrls });
-
-                // Récupération des comptes disponibles
-                const accounts = await walletClient.getWalletAccounts();
-
-                if (ac
+  <main>
+    <h1>Connexion à Massa Wallet</h1>
+    <button id="connect-wallet">Se connecter</button>
+    <div id="wallet-info"></div>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
