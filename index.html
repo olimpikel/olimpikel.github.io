@@ -2,16 +2,63 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DApp Massa - Connexion Wallet</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Connexion Bearby Wallet</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #1d1f21;
+      color: #fff;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    #wallet-info {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <h1>Connexion à Massa Wallet</h1>
-    <button id="connect-wallet">Se connecter</button>
-    <div id="wallet-info"></div>
-  </main>
-  <script type="module" src="app.js"></script>
+  <h1>Connexion à Bearby Wallet</h1>
+  <button id="connect-wallet">Se connecter</button>
+  <div id="wallet-info"></div>
+
+  <script type="module">
+    document.getElementById('connect-wallet').addEventListener('click', async () => {
+      try {
+        if (!window.web3 || !window.web3.wallet) {
+          alert('Bearby Wallet n\'est pas détecté. Veuillez installer l\'extension.');
+          return;
+        }
+
+        const wallet = window.web3.wallet;
+
+        const connected = await wallet.connect();
+        if (!connected) {
+          alert('Connexion refusée.');
+          return;
+        }
+
+        const account = wallet.account;
+        const address = account.base58;
+        const network = wallet.network;
+
+        document.getElementById('wallet-info').innerHTML = `
+          <p><strong>Adresse :</strong> ${address}</p>
+          <p><strong>Réseau :</strong> ${network}</p>
+        `;
+      } catch (err) {
+        console.error(err);
+        alert('Erreur lors de la connexion au portefeuille.');
+      }
+    });
+  </script>
 </body>
 </html>
